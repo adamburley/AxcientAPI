@@ -1,26 +1,51 @@
-# to support checking multiple devices for the same client, we'll use the device object as the pipeable one
 function Get-BackupJob {
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ ($_ -is [int] -and $_ -ge 0) -or [bool]($_ | Get-Member -Name 'Id_') }, ErrorMessage = 'ClientId must be a positive integer or a client object with an Id_ property')]
-        [object]$ClientId,
-
-        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
-        [Alias('Id_')]
-        [int[]]$DeviceId,
+    [CmdletBinding(DefaultParameterSetName = 'Device')]
+    param (        
+        [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
+        [object]$Device,
 
         [Parameter()]
+        [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
+        [object]$Client,
+
+        [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
+        [object]$Job,
+
+        [Parameter()]
+        [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
+        [object]$InputObject
     )
-    
     begin {
+        $_deviceId = Find-ObjectIdByReference $Device
+        $_clientId = Find-ObjectIdByReference $Client 
+        if ($Client) {
+            $_clientId = Find-ObjectIdByReference $Client
+        }
     }
-    
     process {
-        
-    }
-    
-    end {
-        
+        if ($PSCmdlet.ParameterSetName -eq 'Device') {
+            $_clientId = $_clientId ?? $thisDevice.client_id
+            if (-not $_clientId) {
+                Write-Error -Message "Get-BackupJob: No client_id found on device object. Specify with -Client parameter."
+                continue
+            }
+            $_deviceId = Find-ObjectIdByReference $thisDevice
+            $call = Invoke-AxcientAPI -Endpoint "client/$_clientId/device/$_deviceId/job" -Method Get
+            if ($call.error) {
+                $_errorMessage = $call.error.Message
+                Write-Error -Message "Get-Client returned $_errorMessage"
+                $call
+            }
+            $call
+            else {
+                $call | Foreach-Object { 
+                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru | 
+                    Add-Member -MemberType NoteProperty -Name 'device_id' -Value $thisDevice.Id_ -PassThru |
+                    Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job' -PassThru
+                }
+            }
+        } else {
+            
+        }
     }
 }
