@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Sets environment variables for calls to the Axcient API.
+Sets variables for calls to the Axcient API.
 
 .PARAMETER ApiKey
 The API key to authenticate the connection.
