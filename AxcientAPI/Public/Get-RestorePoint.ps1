@@ -1,4 +1,4 @@
-function Get-RestorePoint {
+﻿function Get-RestorePoint {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]
@@ -15,8 +15,8 @@ function Get-RestorePoint {
                 $call
             }
             else {
-                $call | Foreach-Object { 
-                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -PassThru | 
+                $call | Foreach-Object {
+                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -PassThru |
                          Add-Member -MemberType NoteProperty -Name 'device_id' -Value $thisDevice.Id_ -PassThru |
                          Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device.restorepoint' -PassThru
                     }

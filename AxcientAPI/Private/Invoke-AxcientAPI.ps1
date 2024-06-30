@@ -1,4 +1,4 @@
-function Invoke-AxcientAPI {
+﻿function Invoke-AxcientAPI {
     [CmdletBinding()]
     param (
         [string]$Endpoint,
@@ -24,7 +24,7 @@ function Invoke-AxcientAPI {
             404 { 'Resource not found or delegated to authenticating user' }
             default { "$($response.StatusCode) $($response.StatusDescription)" }
         }
-        
+
         [pscustomobject]@{
             error = [pscustomobject][ordered]@{
                 Message = $schemaError

@@ -1,6 +1,6 @@
-function Get-BackupJob {
+﻿function Get-BackupJob {
     [CmdletBinding(DefaultParameterSetName = 'Device')]
-    param (        
+    param (
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Device,
 
@@ -58,8 +58,8 @@ function Get-BackupJob {
             $call
         }
         else {
-            $call | Foreach-Object { 
-                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru | 
+            $call | Foreach-Object {
+                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
                 Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
                 Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job' -PassThru
             }
