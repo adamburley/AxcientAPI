@@ -1,8 +1,19 @@
 function Get-Client {
     [CmdletBinding()]
     param (
-        [int]$ClientId,
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [Alias('Id_')]
+        [int]$Id,
+        
         [switch]$IncludeAppliances
     )
-    Invoke-AxcientAPI -Endpoint "client/$ClientId" -Method Get
+    $call = Invoke-AxcientAPI -Endpoint "client/$Id" -Method Get
+    if ($call.error){
+        $_errorMessage = $call.error.Message
+        Write-Error -Message "Get-Client returned $_errorMessage"
+        $call
+    }
+    else {
+        $call | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'client' -PassThru }
+    }
 }
