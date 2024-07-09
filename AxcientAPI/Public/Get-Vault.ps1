@@ -55,9 +55,9 @@ function Get-Vault {
             }
         }
         $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-        if ($call.error) {
+        if ($call -isnot [array] -and $call.error) {
             $_errorMessage = $call.error.Message
-            Write-Error -Message "Get-Vault returned $_errorMessage"
+            Write-Error -Message "call returned $_errorMessage"
             $call
         }
         else {

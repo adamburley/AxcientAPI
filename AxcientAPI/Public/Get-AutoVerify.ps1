@@ -9,9 +9,9 @@
         foreach ($thisDevice in $Device) {
             $_deviceId = Find-ObjectIdByReference $thisDevice
             $call = Invoke-AxcientAPI -Endpoint "device/$_deviceId/autoverify" -Method Get
-            if ($call.error) {
+            if ($call -isnot [array] -and $call.error) {
                 $_errorMessage = $call.error.Message
-                Write-Error -Message "Get-AutoVerify returned $_errorMessage"
+                Write-Error -Message "call returned $_errorMessage"
                 $call
             }
             else {
