@@ -18,22 +18,18 @@ Describe "Get-Device" {
     }    
     Context "Parameter validation" {
         It "-Client supports a matching object" {
-           Mock Get-Device { }
               {Get-Device -Client $clientObject } | Should -Not -Throw
         }
         It "-Client supports an integer" {
-            Mock Get-Device { }
             { Get-Device -Client 2 } | Should -Not -Throw
         }
         It "-Client requires a matching object" {
             { Get-Device -Client $deviceObject } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Client'. Must be a positive integer or matching object" -ExceptionType ([System.Management.Automation.ParameterBindingException])
         }
         It "-Device supports a matching object" {
-            Mock Get-Device { }
             { Get-Device -Device $deviceObject } | Should -Not -Throw
         }
         It "-Device supports an integer" {
-            Mock Get-Device { }
             { Get-Device -Device 42 } | Should -Not -Throw
         }
         It "-Device requires a matching object" {
