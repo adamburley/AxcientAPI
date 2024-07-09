@@ -24,11 +24,13 @@ Additionally for ease of use an 'objectschema' property is added to each respons
 Jobs don't have a mock object, so it's unclear what properties are returned.
 The OpenAPI definition for job history is also clearly erroneous
 
+Some endpoints return errors in the mock if a trailing slash is used. E.g. `/client` returns data, `/client/` returns an error
+
 ## TODO / Features wanted
 
-1. [X] Devices do not carry client ID in the object, making them hard to pipe *Currently implemented by the module, not the API*
+1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
 2. [ ] Consider custom objects / classes
-3. [ ] Testing with Pester
+3. [ ] Testing with Pester [*In progress*]
 
 ## Functions
 
@@ -61,3 +63,20 @@ The OpenAPI definition for job history is also clearly erroneous
 | Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |       |
 | Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |       |
 | Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` |       |
+
+### Appliance
+
+| Function      | Endpoint                        | Schema      | Notes |
+| ------------- | ------------------------------- | ----------- | ----- |
+| Get-Appliance | `/appliance`                    | `appliance` |       |
+| Get-Appliance | `/client/{client_id}/appliance` | `appliance` |       |
+| Get-Appliance | `/appliance/{appliance_id}`     | `appliance` |       |
+
+### Vault
+
+| Function            | Endpoint                                    | Schema  | Notes                                                                                             |
+| ------------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| Get-Vault           | `/vault`                                    | `vault` |                                                                                                   |
+| Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
+| Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |  | This appears redundant to the standard vault call. Ommitting until more information is available. |
+| POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
