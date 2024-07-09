@@ -12,7 +12,8 @@
     process {
         if ($PSCmdlet.ParameterSetName -eq 'Client') {
             foreach ($thisClient in $Client) {
-                $_endpoint = "client/$Id"
+                $_id = Find-ObjectIdByReference $thisClient
+                $_endpoint = "client/$_id"
                 if ($IncludeAppliances) {
                     $_endpoint += '?include_appliances=true'
                 }
