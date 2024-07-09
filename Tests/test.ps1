@@ -7,6 +7,7 @@ $config.Run.Path = ".\Tests"
 # Enable Code Coverage
 $config.CodeCoverage.Enabled = $true
 $config.CodeCoverage.Path = ".\Output\AxcientAPI\AxcientAPI.psm1"
+$config.CodeCoverage.OutputPath = ".\Tests\coverage.xml"
 
 $config.Output.Verbosity = 'Detailed'
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.1//EN" "report.dtd"[]>
+<report name="Pester (07/01/2024 11:31:22)">
+  <sessioninfo id="this" start="1719833482724" dump="1719833482797" />
+  <package name="public">
+    <class name="public/Get-Device" sourcefilename="Get-Device.ps1">
+      <method name="Get-Device" desc="()" line="6">
+        <counter type="INSTRUCTION" missed="29" covered="0" />
+        <counter type="LINE" missed="21" covered="0" />
+        <counter type="METHOD" missed="1" covered="0" />
+      </method>
+      <counter type="INSTRUCTION" missed="29" covered="0" />
+      <counter type="LINE" missed="21" covered="0" />
+      <counter type="METHOD" missed="1" covered="0" />
+      <counter type="CLASS" missed="1" covered="0" />
+    </class>
+    <sourcefile name="Get-Device.ps1">
+      <line nr="6" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="10" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="14" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="15" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="16" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="17" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="18" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="19" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="20" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="21" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="22" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="25" mi="5" ci="0" mb="0" cb="0" />
+      <line nr="30" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="31" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="32" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="33" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="34" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="35" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="36" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="37" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="40" mi="5" ci="0" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="29" covered="0" />
+      <counter type="LINE" missed="21" covered="0" />
+      <counter type="METHOD" missed="1" covered="0" />
+      <counter type="CLASS" missed="1" covered="0" />
+    </sourcefile>
+    <counter type="INSTRUCTION" missed="29" covered="0" />
+    <counter type="LINE" missed="21" covered="0" />
+    <counter type="METHOD" missed="1" covered="0" />
+    <counter type="CLASS" missed="1" covered="0" />
+  </package>
+  <counter type="INSTRUCTION" missed="29" covered="0" />
+  <counter type="LINE" missed="21" covered="0" />
+  <counter type="METHOD" missed="1" covered="0" />
+  <counter type="CLASS" missed="1" covered="0" />
+</report>

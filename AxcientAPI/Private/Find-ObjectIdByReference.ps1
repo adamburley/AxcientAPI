@@ -1,4 +1,4 @@
-function Find-ObjectIdByReference {
+﻿function Find-ObjectIdByReference {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline, Mandatory)]
@@ -31,7 +31,7 @@ function Find-ObjectIdByReference {
                 if ([int]::TryParse($_, [ref]$_result)) {
                     $Validation ? $true : $_result
                 }
-                else { 
+                else {
                     Write-Warning "Find-ObjectIdByReference: Unable to parse string to Int: $_"
                     $null
                 }
