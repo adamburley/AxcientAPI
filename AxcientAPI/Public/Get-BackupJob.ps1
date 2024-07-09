@@ -1,5 +1,5 @@
 ﻿function Get-BackupJob {
-    [CmdletBinding(DefaultParameterSetName = 'Device')]
+    [CmdletBinding()]
     param (
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Device,
