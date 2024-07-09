@@ -2,11 +2,11 @@
     [CmdletBinding(DefaultParameterSetName = 'Client')]
     param (
         [Parameter(ValueFromPipeline, Mandatory, ParameterSetName = 'Client')]
-        [Alias('Id')]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object[]]$Client,
 
         [Parameter(Mandatory, ParameterSetName = 'Device')]
+        [Alias('Id')]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object[]]$Device
     )
