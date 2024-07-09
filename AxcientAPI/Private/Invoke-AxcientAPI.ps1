@@ -6,7 +6,7 @@
     )
     $_uri = "$Script:AxcientBaseUrl/$Endpoint"
     Write-Debug -Message "Axcient API: $Method $_uri"
-    $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-HEADER' = $AxcientApiKey } -SkipHttpErrorCheck
+    $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-Key' = $AxcientApiKey } -SkipHttpErrorCheck
     Write-Debug -Message "API Returned: $($response.StatusCode) $($response.StatusDescription) $($response.Content.Length) bytes"
     if ($response.StatusCode -ne 200) {
         Write-Debug -Message "Failed to invoke Axcient API. StatusCode: $($response.StatusCode). Content: $($response.Content)"
