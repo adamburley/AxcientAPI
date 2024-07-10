@@ -21,9 +21,10 @@
     }
     process {
         if ($InputObject.objectschema -eq 'job' -xor $PSBoundParameters.ContainsKey('Job')) {
-            $_jobId = $InputObject.Id_
-            $_clientId = $InputObject.client_id ?? $clientParamID
-            $_deviceId = $InputObject.device_id ?? $deviceParamID
+            $_io = $InputObject ?? $Job
+            $_jobId = $_io.Id_
+            $_clientId = $_io.client_id ?? $clientParamID
+            $_deviceId = $_io.device_id ?? $deviceParamID
             Write-Debug "Get-BackupJob: Per-Job flow: Client: $_clientId, Device: $_deviceId, Job: $_jobId"
             $_endpoint = "client/$_clientId/device/$_deviceId/job/$_jobId"
             if (-not ($_clientId -and $_deviceId)) {
@@ -32,8 +33,9 @@
             }
         }
         elseif ($InputObject.objectschema -eq 'device' -xor $PSBoundParameters.ContainsKey('Device')) {
-            $_clientId = $InputObject.client_id ?? $clientParamID
-            $_deviceId = $InputObject.Id_ ?? $deviceParamID
+            $_io = $InputObject ?? $Device
+            $_clientId = $_io.client_id ?? $clientParamID
+            $_deviceId = $_io.Id_ ?? $deviceParamID
             Write-Debug "Get-BackupJob: Device flow: Client: $_clientId, Device: $_deviceId, Job: $_jobId"
             $_endpoint = "client/$_clientId/device/$_deviceId/job"
             if (-not $_clientId) {
