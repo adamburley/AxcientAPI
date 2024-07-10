@@ -15,8 +15,8 @@
             foreach ($thisDevice in $Device) {
                 $_deviceId = Find-ObjectIdByReference $thisDevice
                 $_endpoint = "device/$_deviceId"
-                Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { 
-                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -PassThru | 
+                Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
+                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -PassThru |
                     Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
                 }
             }
@@ -25,8 +25,8 @@
             foreach ($thisClient in $Client) {
                 $_clientId = Find-ObjectIdByReference $thisClient
                 $_endpoint = "client/$_clientId/device"
-                Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { 
-                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru | 
+                Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
+                    $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
                     Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru }
             }
         }

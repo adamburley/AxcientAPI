@@ -15,7 +15,7 @@
         $parsedContent = switch ($response.Headers.'Content-Type') {
             'application/problem+json' { [System.Text.Encoding]::UTF8.GetString($response.Content) | ConvertFrom-Json }
             'application/json' { $response.Content | ConvertFrom-Json }
-            default { 
+            default {
                 if ($response.Content | Test-Json) { $response.Content | ConvertFrom-Json } # some responses arrive as JSON but with a text/html content type
                 else {
                 Write-Debug "The API did not return an expected body. Body: $($response.Content)"

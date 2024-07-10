@@ -58,9 +58,9 @@
             $_endpoint += '?' + ($_queryParameters -join '&')
         }
         $_clientId = $Client.Id_ ?? $Appliance.client_id ?? $InputObject.client_id # Catch client ID if the passed Appliance object contains it
-        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { 
-            $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'appliance' -PassThru | 
-            Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru 
+        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
+            $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'appliance' -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru
         }
     }
 }
