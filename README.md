@@ -10,27 +10,54 @@ This module conforms to endpoints published as of 6/25/2024 and as such supports
 
 As the API itself is in early access and likely to change, this should not be considered a production-ready module. However, I have made efforts to introduce no novel bugs. Please raise issues as they are found.
 
-## Notes
+## Status
 
-Because the API does not currently implement parent object IDs in responses (e.g. client ID, device ID) they are added by the module. Added:
+As of `0.1.0` the module is successfully calling the production API. See releases to download the built module files.   
+Once documentation is complete and additional testing is successful this will be published to the PowerShell Gallery.
 
-| Property | Added to |
-| `client_id` | Devices, Jobs,
+## Parent ID Properties
 
-Additionally for ease of use an 'objectschema' property is added to each response object. See functions list below for a list of object schema IDs.
+Because the API does not currently implement parent object IDs in responses they are added by the module using property names `client_id`, `device_id`, etc.
 
-**This is limited in capability**. For example if you get a device by ID, client_id will be empty in the returned object.
+Where endpoints require such data - for example *Get-BackupJob* - these properties are used if included in the presented object.
 
-Jobs don't have a mock object, so it's unclear what properties are returned.
-The OpenAPI definition for job history is also clearly erroneous
+In cases where a parent ID is not available - such as calling *Get-Device* with a specified Device ID integer - the property is present, but empty. You can specify the requisite value by populating the property or by passing the value as a parameter where needed.
 
-Some endpoints return errors in the mock if a trailing slash is used. E.g. `/client` returns data, `/client/` returns an error
+```PowerShell
+# Client ID is available in the Device object
+PS > $device = Get-Device -Client 42 | Select -First 1
+PS > $device.client_id; $device.id_
+42
+67
 
-## TODO / Features wanted
+PS > $job = $device | Get-Job | Select -First 1
+PS > $job.client_id; $job.device_id
+42
+67
 
-1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
-2. [ ] Consider custom objects / classes
-3. [ ] Testing with Pester [*In progress*]
+# Client ID is not available. Error result.
+PS > $device = Get-Device -Id 42
+PS > $device.client_id; $device.id_
+
+67
+
+PS > $job = $device | Get-Job
+ERROR: Get-BackupJob: Missing client ID on device object. Specify with -Client parameter.
+
+# Providing by updating object property
+PS > $device.client_id = 42
+PS > $device | Get-Job
+
+# Or specify as a parameter
+
+PS > $device | Get-Job -Client 42
+```
+
+## Schema Property
+
+The property `objectschema` is added to each object returned by a function. This enables more effective use of pipelines.
+
+It's possible this will be replaced at a later date by the implementation of object classes.
 
 ## Functions
 
@@ -78,5 +105,57 @@ Some endpoints return errors in the mock if a trailing slash is used. E.g. `/cli
 | ------------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
 | Get-Vault           | `/vault`                                    | `vault` |                                                                                                   |
 | Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
-| Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |  | This appears redundant to the standard vault call. Ommitting until more information is available. |
+| Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |         | This appears redundant to the standard vault call. Ommitting until more information is available. |
 | POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
+
+
+## Known differences between Mock and Prod
+
+1. Auth header mismatch. Intro to endpoint documentation lists authentication header as `x-api-headers`, however the production environment expects an `x-api-key` header. The correct header IS listed in the swagger demo / OpenAPI specification.
+2. Some endpoints return errors in the mock if a trailing slash is used. E.g. `/client` returns data, `/client/` returns an error. This is not replicated in the production environment.
+3. Errors. See **Error Handling** for specifics related to the API itself. Known response formats are handled by the module itself and will return informative messaging where possible. To retrieve the full contents of an error message enable them when initializing the connection: `Invoke-AxcientAPI -ReturnErrors`
+
+## Error Handling
+
+Errors return different values in different situations. This is a collection of raw results identified so far (as of 2024-7-10). When calling from the module, errors are handled gracefully where possible and provide informative responses.    
+If an error response does not contain a parseable body, the module will create a similar response with the type `UndefiniedHTTPErrorResponse`. TODO: Test if all endpoints return robust error responses.
+
+### Invalid API Key:
+
+- HTTP Status: 401
+- Content-Type: `application/json`
+- Body:
+```json
+{ "message": "Unauthorized" }
+```
+
+### Invalid URI
+
+This includes both invalid endpoints (`/organisation`) and invalid path-based input (`/client/thisshouldbeanumber`). Per the API specification Invalid / not-a-number errors should return HTTP 400 but do not.
+
+- HTTP Status: 401
+- Content-Type: `text/html; charset=utf-8`
+- Body
+```json
+{ "code": 401, "msg": "Unauthorized" }
+```
+
+### Not Found
+
+- HTTP Status: 404,
+- Content-Type: `application/problem+json`
+- Body (formatted as byte array):
+```json
+{
+  "detail": "Client with such id = 12 is not found",
+  "status": 404,
+  "title": "Client not found",
+  "type": "NotFoundException"
+}
+```
+
+## TODO / Features wanted
+
+1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
+2. [ ] Consider custom objects / classes
+3. [ ] Testing with Pester [*In progress*]

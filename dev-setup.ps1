@@ -18,7 +18,8 @@ Function Initialize-DevEnvironment {
 
     # Module-specific initializations
 
-    Initialize-AxcientAPI -ApiKey $env:AxcientApiKey -MockServer
+    #Initialize-AxcientAPI -ApiKey $env:AxcientApiKey -MockServer
+    Initialize-AxcientAPI -ApiKey ${env:AxcientApiKey-Prod} -ReturnErrors
 }
 Set-Alias -Name 'redo' -Value Initialize-DevEnvironment -Scope Global
 
