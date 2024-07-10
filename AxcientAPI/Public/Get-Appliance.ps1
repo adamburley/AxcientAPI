@@ -57,15 +57,10 @@
         if ($_queryParameters) {
             $_endpoint += '?' + ($_queryParameters -join '&')
         }
-        $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-        if ($call -isnot [array] -and $call.error) {
-            $_errorMessage = $call.error.Message
-            Write-Error -Message "call returned $_errorMessage"
-            $call
-        }
-        else {
-            $_clientId = $Client.Id_ ?? $Appliance.client_id ?? $InputObject.client_id # Catch client ID if the passed Appliance object contains it
-            $call | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'appliance' -PassThru | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru }
+        $_clientId = $Client.Id_ ?? $Appliance.client_id ?? $InputObject.client_id # Catch client ID if the passed Appliance object contains it
+        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { 
+            $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'appliance' -PassThru | 
+            Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru 
         }
     }
 }

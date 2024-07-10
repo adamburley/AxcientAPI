@@ -54,14 +54,6 @@ function Get-Vault {
                 $_endpoint = "vault"
             }
         }
-        $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-        if ($call -isnot [array] -and $call.error) {
-            $_errorMessage = $call.error.Message
-            Write-Error -Message "call returned $_errorMessage"
-            $call
-        }
-        else {
-            $call | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'vault' -PassThru }
-        }
+        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'vault' -PassThru }
     }
 }

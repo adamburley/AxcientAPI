@@ -8,7 +8,7 @@
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Client,
 
-        [Parameter(ValueFromPipeline,Mandatory)]
+        [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'job' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Job
     )
@@ -26,20 +26,11 @@
             continue
         }
         $_endpoint = "client/$_clientId/device/$_deviceId/job/$_jobId/history"
-        $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-        if ($call -isnot [array] -and $call.error) {
-            $_errorMessage = $call.error.Message
-            Write-Error -Message "call returned $_errorMessage"
-            $call
+        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
+            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'job_id' -Value $_jobId -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job.history' -PassThru
         }
-        else {
-            $call | Foreach-Object {
-                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
-                Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
-                Add-Member -MemberType NoteProperty -Name 'job_id' -Value $_jobId -PassThru |
-                Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job.history' -PassThru
-            }
-        }
-
     }
 }

@@ -17,15 +17,7 @@
                 if ($IncludeAppliances) {
                     $_endpoint += '?include_appliances=true'
                 }
-                $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-                if ($call -isnot [array] -and $call.error) {
-                    $_errorMessage = $call.error.Message
-                    Write-Error -Message "Get-Client returned $_errorMessage"
-                    $call
-                }
-                else {
-                    $call | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'client' -PassThru }
-                }
+                Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'client' -PassThru }
             }
         }
         else {
@@ -33,15 +25,7 @@
             if ($IncludeAppliances) {
                 $_endpoint += '?include_appliances=true'
             }
-            $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-            if ($call -isnot [array] -and $call.error) {
-                $_errorMessage = $call.error.Message
-                Write-Error -Message "Get-Client returned $_errorMessage"
-                $call
-            }
-            else {
-                $call | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'client' -PassThru }
-            }
+            Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object { $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'client' -PassThru }
         }
     }
 }

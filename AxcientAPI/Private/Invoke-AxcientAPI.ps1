@@ -4,7 +4,7 @@
         [string]$Endpoint,
         [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get,
 
-        [switch]$ReturnErrors
+        [bool]$ReturnErrors = $Script:AxcientReturnErrors
     )
     $_uri = "$Script:AxcientBaseUrl/$Endpoint"
     Write-Debug -Message "Axcient API: $Method $_uri"

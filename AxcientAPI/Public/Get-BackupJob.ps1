@@ -44,26 +44,19 @@
         else {
             if ($InputObject.objectschema -eq 'Device' -and $PSBoundParameters.ContainsKey('Device')) {
                 Write-Error 'Device specified via pipeline and -Device parameter. Use one or the other.'
-            } elseif ($InputObject.objectschema -eq 'Job' -and $PSBoundParameters.ContainsKey('Job')) {
+            }
+            elseif ($InputObject.objectschema -eq 'Job' -and $PSBoundParameters.ContainsKey('Job')) {
                 Write-Error 'Job specified via pipeline and -Job parameter. Use one or the other.'
-            } else {
+            }
+            else {
                 Write-Error "At least Device and Client ID must be specified as an object member or via parameters."
             }
             continue
         }
-        $call = Invoke-AxcientAPI -Endpoint $_endpoint -Method Get
-        if ($call -isnot [array] -and $call.error) {
-            $_errorMessage = $call.error.Message
-            Write-Error -Message "call returned $_errorMessage"
-            $call
+        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
+            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
+            Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job' -PassThru
         }
-        else {
-            $call | Foreach-Object {
-                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
-                Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
-                Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job' -PassThru
-            }
-        }
-
     }
 }
