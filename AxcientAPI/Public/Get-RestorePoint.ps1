@@ -1,4 +1,24 @@
-﻿function Get-RestorePoint {
+﻿<#
+.SYNOPSIS
+Retrieves restore points for a device.
+
+.DESCRIPTION
+For each specified device, returns an object with current status and a list of restore points.
+
+.PARAMETER Device
+One or more Device objects or integers to retrieve restore points for.
+
+.INPUTS
+Restore point object
+
+.OUTPUTS
+Restore point object or array of Restore point objects
+
+.EXAMPLE
+$devices = Get-Device
+PS > $restorePoints = $devices | Get-RestorePoint
+#>
+function Get-RestorePoint {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]

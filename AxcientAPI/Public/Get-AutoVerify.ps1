@@ -1,5 +1,32 @@
-﻿function Get-AutoVerify {
+﻿<#
+.SYNOPSIS
+Retrieves auto-verify information for one or more devices.
+
+.DESCRIPTION
+Returns information about auto-verify tests. Each device returns an auto-verify object with one or
+more runs detailed.
+
+.PARAMETER Device
+The device or devices to retrieve auto-verify information. Accepts integer IDs or Device objects.
+Accepts from the pipeline.
+
+.INPUTS
+Device objects
+
+.OUTPUTS
+An Autoverify object or array of Autoverify objects.
+
+.EXAMPLE
+Get-AutoVerify -Device $device1, $device2
+Retrieves auto-verify information for $device1 and $device2.
+
+.EXAMPLE
+$clientDevices | Get-AutoVerify
+Returns auto-verify information for all devices.
+#>
+function Get-AutoVerify {
     [CmdletBinding()]
+    [OutputType([PSCustomObject], [PSCustomObject[]])]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]

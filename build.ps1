@@ -13,3 +13,6 @@ Write-Host "`nTesting Module..." -ForegroundColor Yellow
 #Import-Module Pester -MinimumVersion 5.6.0
 #Invoke-Pester -Path .\Tests -Output Detailed
 .\Tests\test.ps1
+
+# Rebuild Docs
+New-MarkdownHelp -Module AxcientAPI -OutputFolder .\docs -Force -NoMetadata -ExcludeDontShow

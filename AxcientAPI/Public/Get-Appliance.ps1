@@ -1,4 +1,43 @@
-﻿function Get-Appliance {
+﻿<#
+.SYNOPSIS
+Get information about an Appliance.
+
+.DESCRIPTION
+Gets information about appliances. Can accept Appliance or Client objects from the pipeline or from parameters.
+You can also specify an appliance by its service ID.
+
+.PARAMETER Appliance
+Appliance object or ID to retrieve information on.
+
+.PARAMETER Client
+Specifies the client object or reference to retrieve information for all appliances associated with a specific client.
+
+.PARAMETER InputObject
+Specifies the appliance or client object received through the pipeline to retrieve information.
+
+.PARAMETER ServiceID
+Specifies the service ID of the appliance. Must be a 4-character alphanumeric string.
+
+.PARAMETER IncludeDevices
+Indicates whether to include device information along with the appliance information. By default, it is set to $true.
+
+.INPUTS
+Appliance or Client object
+
+.OUTPUTS
+An Appliance object or array or Appliance objects
+
+.EXAMPLE
+Get-Appliance
+# Returns all appliances avaialble to the user account at this organization
+
+.EXAMPLE
+Get-Appliance -Appliance 12345
+
+.EXAMPLE
+$client | Get-Appliance
+#>
+function Get-Appliance {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     param (
         [Parameter(ParameterSetName = 'Appliance')]
@@ -9,7 +48,7 @@
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Client,
 
-        [Parameter(ValueFromPipeline, ParameterSetName = 'Pipeline')]
+        [Parameter(ValueFromPipeline, ParameterSetName = 'Pipeline', DontShow)]
         [ValidateScript({ $_.objectschema -iin 'appliance', 'client' }, ErrorMessage = 'Only Appliance and Client objects are accepted via the pipeline.' )]
         [object]$InputObject,
 

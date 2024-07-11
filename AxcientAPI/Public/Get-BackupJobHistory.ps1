@@ -1,4 +1,30 @@
-﻿function Get-BackupJobHistory {
+﻿<#
+.SYNOPSIS
+Get history of runs for a backup job.
+
+.DESCRIPTION
+Retrieves run history for a backup job
+
+.PARAMETER Device
+Device to retrieve information for. Accepts device ID or Device Object. If specifying a device
+object, function will also use Client ID if available. Not required if present on Job object
+
+.PARAMETER Client
+Relevant Client ID or Object. Not required if Client ID is avilable on Device or Job object
+
+.PARAMETER Job
+A specific Job to retrieve information for.
+
+.EXAMPLE
+Get-BackupJobHistory -Device 12345 -Client 67890 -Job 54321
+
+.EXAMPLE
+$job | Get-BackupJobHistory
+
+.NOTES
+This endpoint currently has a bug. Function logic is cohesive but untested. It may be attempted, a warning will display. Once bug is resolved this warning will be removed. #GH-3 -2024-07-11
+#>
+function Get-BackupJobHistory {
     [CmdletBinding(DefaultParameterSetName = 'Device')]
     param (
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
@@ -13,6 +39,7 @@
         [object]$Job
     )
     begin {
+        Write-Warning "This endpoint is bugged and unusable as of 2024-07-11, returning a missing path parameter error. Once this is resolved this function will be tested and this warning removed. See Issue #GH-3."
         $deviceParamID = Find-ObjectIdByReference $Device
         $clientParamID = Find-ObjectIdByReference $Client
     }

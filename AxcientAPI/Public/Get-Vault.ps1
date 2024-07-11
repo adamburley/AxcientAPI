@@ -1,3 +1,46 @@
+<#
+.SYNOPSIS
+Get information about vaults
+
+.DESCRIPTION
+Get information about a vaults related to an organization or on a specific vault. If requesting
+information for all vaults you can filter by type, state, and URL presence.
+
+.PARAMETER Vault
+Vault object or ID to retrieve information on.
+
+.PARAMETER Type
+Specifies the type of vaults to retrieve. Valid values are 'Private' and 'Cloud'. Returns both
+types if not specified.
+
+.PARAMETER Active
+Specifies whether to retrieve active vaults only. If set to $true, only active vaults will be
+retrieved. If set to $false, only inactive vaults will be retrieved. If not set, the result
+is not filtered by active state.
+
+.PARAMETER WithUrl
+Filter on presence of URL. If true, only vaults with a URL will be retrieved. If false, only vaults
+without a URL will be retrieved. If not set, the result is not filtered by URL presence.
+
+.PARAMETER Limit
+Specifies the maximum number of vaults to retrieve.
+
+.PARAMETER IncludeDevices
+Specifies whether to include devices associated with the vaults in the retrieved information. If set to $true, devices will be included.
+
+.EXAMPLE
+Get-Vault -Vault 12345
+
+.EXAMPLE
+Get-Vault -Type 'Private' -Active $true -WithUrl $true -IncludeDevices $false
+
+.INPUTS
+    Pipeline input is not accepted.
+
+.OUTPUTS
+Returns a Vault object or array of Vault objects
+    [PSCustomObject],[PScustomObject[]]
+#>
 function Get-Vault {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     param(

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Sets variables for calls to the Axcient API.
+Prepares for calls to the Axcient API.
 
 .PARAMETER ApiKey
 The API key to authenticate the connection.
@@ -12,7 +12,7 @@ Specifies whether to use the mock server for testing purposes.
 When set, module functions will return the error object if an API call fails. By default nothing is returned on failure.
 
 .EXAMPLE
-Initialize-AxcientAPI -ApiKey "your-api-key" -MockServer -ReturnErrors
+Initialize-AxcientAPI -ApiKey "imalumberjackandimokay" -MockServer -ReturnErrors
 #>
 function Initialize-AxcientAPI {
     [CmdletBinding()]

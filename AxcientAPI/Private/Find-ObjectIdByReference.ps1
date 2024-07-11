@@ -1,4 +1,27 @@
-﻿function Find-ObjectIdByReference {
+﻿<#
+.SYNOPSIS
+Validates an object and returns an ID
+
+.DESCRIPTION
+This function handles two needs: Validating a given object is likely valid, and returning a logical ID for the object.
+It is used by functions that accept custom object input as a simple and consistent method to handle these needs.
+
+.PARAMETER Reference
+The reference to be evaluated. Valid inputs are integers, strings, objects containing an id_ property
+and possibly an objectschema property, and $null. All other inputs raise a warning to the console and
+return $null.
+
+.PARAMETER Schema
+The schema name to compare against the provided Reference object. If the object has an objectschema property
+the function will return the object ID if the schema matches the provided schema. If the schema does not match
+the function will return $null and write a warning to the console. [int] and [string] values are not evaluated
+and process as if the parameter is not specified.
+
+.PARAMETER Validation
+If set, the function completes as normal but returns only $true if the Reference is valid and $false otherwise.
+This is used in parameter definition blocks as part of a ValidateScript attribute.
+#>
+function Find-ObjectIdByReference {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline, Mandatory)]
