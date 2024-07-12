@@ -8,7 +8,7 @@
     )
     $_uri = "$Script:AxcientBaseUrl/$Endpoint"
     Write-Debug -Message "Axcient API: $Method $_uri"
-    $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-Key' = $AxcientApiKey } -SkipHttpErrorCheck
+    $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-Key' = $AxcientApiKey; 'Accept' = 'application/json' } -SkipHttpErrorCheck
     Write-Debug -Message "API Returned: $($response.StatusCode) $($response.StatusDescription) $($response.Content.Length) bytes of $($response.Headers.'Content-Type')"
     if ($response.StatusCode -ne 200) {
         # Attempt to parse the body
@@ -16,7 +16,7 @@
             'application/problem+json' { [System.Text.Encoding]::UTF8.GetString($response.Content) | ConvertFrom-Json }
             'application/json' { $response.Content | ConvertFrom-Json }
             default {
-                if ($response.Content | Test-Json) { $response.Content | ConvertFrom-Json } # some responses arrive as JSON but with a text/html content type
+                if ($response.Content | Test-Json -ErrorAction SilentlyContinue) { $response.Content | ConvertFrom-Json } # some responses arrive as JSON but with a text/html content type
                 else {
                 Write-Debug "The API did not return an expected body. Body: $($response.Content)"
                 $null
