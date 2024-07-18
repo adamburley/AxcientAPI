@@ -5,20 +5,27 @@ Retrieves information about devices.
 
 ## SYNTAX
 
-### Client (Default)
+### None (Default)
 ```
-Get-Device -Client <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Get-Device [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### Client
+```
+Get-Device [-Client <Object[]>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Device
 ```
-Get-Device -Device <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Get-Device [-Device <Object[]>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Retrieves information about protected devices, including agent status, version, IP Address,
 host OS, and more.
 You can specify by Client or Device.
+If no parameters are provided, the
+function returns all devices available under the authenticated account.
 
 ## EXAMPLES
 
@@ -56,7 +63,7 @@ Type: Object[]
 Parameter Sets: Client
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
@@ -73,7 +80,7 @@ Type: Object[]
 Parameter Sets: Device
 Aliases: Id
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

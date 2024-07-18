@@ -20,7 +20,7 @@ user API Key.
 Get-Organization
 ```
 
-id_           : 26
+id           : 26
 name          : Spacely Sprockets
 active        : True
 brand_id      : SPACELY
