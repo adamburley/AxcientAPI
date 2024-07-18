@@ -4,7 +4,7 @@ BeforeAll {
 
 Describe "Invoke-AxcientAPI" {
     Context "Input validation" {
-        It "Invokes the correct endpoint" {
+        It "Invokes the correct mock endpoint" {
             Initialize-AxcientAPI -ApiKey "pesterapikey" -MockServer
             Mock -ModuleName AxcientAPI -CommandName Invoke-WebRequest {
                 New-Variable -Name InvocationEndpoint -Value $Uri -Scope Global -Force
@@ -12,6 +12,16 @@ Describe "Invoke-AxcientAPI" {
             InModuleScope AxcientAPI { 
                 Invoke-AxcientAPI -Endpoint "client/2/device" -Method Get -ErrorAction SilentlyContinue
                 $InvocationEndpoint | Should -Be "https://ax-pub-recover.wiremockapi.cloud/client/2/device" 
+            }
+        }
+        It "Invokes the correct production endpoint" {
+            Initialize-AxcientAPI -ApiKey "pesterapikey"
+            Mock -ModuleName AxcientAPI -CommandName Invoke-WebRequest {
+                New-Variable -Name InvocationEndpoint -Value $Uri -Scope Global -Force
+            }
+            InModuleScope AxcientAPI { 
+                Invoke-AxcientAPI -Endpoint "client/2/device" -Method Get -ErrorAction SilentlyContinue
+                $InvocationEndpoint | Should -Be "https://axapi.axcient.com/x360recover/client/2/device" 
             }
         }
         It "Provides correct header information" {
