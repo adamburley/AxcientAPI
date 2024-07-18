@@ -12,12 +12,17 @@ As the API itself is in early access and likely to change, this should not be co
 
 ## Status
 
-As of `0.1.0` the module is successfully calling the production API. See releases to download the built module files.  
+Version `0.2.0` reflects July 2024 schema changes.
+
+The module is usable. Testing is ongoing.
+
 Once documentation is complete and additional testing is successful this will be published to the PowerShell Gallery.
 
 ## Getting Started
 
 **PowerShell 7 Required. Should be compatible with all implementations of PowerShell Core.**
+
+Download ZIP from Releases and export to your preferred path.
 
 ```PowerShell
 PS > Import-Module .\AxcientAPI
@@ -52,6 +57,7 @@ objectschema  : organization
 
 | Function         | Endpoint                            | Schema                | Notes |
 | ---------------- | ----------------------------------- | --------------------- | ----- |
+| Get-Device       | `/device` | `device` | Announced in July 2024 schema update. |
 | Get-Device       | `/client/{client_id}/device`        | `device`              |       |
 | Get-Device       | `/device/{device_id}`               | `device`              |       |
 | Get-AutoVerify   | `/device/{device_id}/autoverify`    | `device.autoverify`   |       |
@@ -84,7 +90,7 @@ objectschema  : organization
 
 ## Parent ID Properties
 
-Because the API does not currently implement parent object IDs in responses they are added by the module using property names `client_id`, `device_id`, etc.
+Because the API does not currently implement parent object IDs in responses they are added by the module using property names `client_id`, `device_id`, etc. **Update** as of the July 2024 schema change, some endpoints are returning parent IDs using the same schema.
 
 Where endpoints require such data - for example _Get-BackupJob_ - these properties are used if included in the presented object.
 
