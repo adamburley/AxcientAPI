@@ -34,7 +34,7 @@ $oneClientFreshData = $clients[0] | Get-Client -IncludeAppliances
 
 .EXAMPLE
 $oneClient = Get-Client -Client 12345
-PS > $oneClient.id_
+PS > $oneClient.id
 12345
 #>
 function Get-Client {

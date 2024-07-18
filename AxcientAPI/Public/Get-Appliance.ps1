@@ -74,11 +74,11 @@ function Get-Appliance {
             }
             'Pipeline' {
                 if ($InputObject.objectschema -eq 'appliance') {
-                    $_applianceId = $InputObject.Id_
+                    $_applianceId = $InputObject.id
                     $_endpoint = "appliance/$_applianceId"
                 }
                 elseif ($InputObject.objectschema -eq 'client') {
-                    $_clientId = $InputObject.Id_
+                    $_clientId = $InputObject.id
                     $_endpoint = "client/$_clientId/appliance"
                 }
             }
@@ -96,7 +96,7 @@ function Get-Appliance {
         if ($_queryParameters) {
             $_endpoint += '?' + ($_queryParameters -join '&')
         }
-        $_clientId = $Client.Id_ ?? $Appliance.client_id ?? $InputObject.client_id # Catch client ID if the passed Appliance object contains it
+        $_clientId = $Client.id ?? $Appliance.client_id ?? $InputObject.client_id # Catch client ID if the passed Appliance object contains it
         Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
             $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'appliance' -PassThru |
             Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru

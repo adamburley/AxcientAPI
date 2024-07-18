@@ -7,7 +7,7 @@ This function handles two needs: Validating a given object is likely valid, and 
 It is used by functions that accept custom object input as a simple and consistent method to handle these needs.
 
 .PARAMETER Reference
-The reference to be evaluated. Valid inputs are integers, strings, objects containing an id_ property
+The reference to be evaluated. Valid inputs are integers, strings, objects containing an id property
 and possibly an objectschema property, and $null. All other inputs raise a warning to the console and
 return $null.
 
@@ -40,14 +40,14 @@ function Find-ObjectIdByReference {
             { $null -eq $_ } { $null }
             { $Schema -and $_.objectschema } {
                 if ($_.objectschema -ieq $Schema) {
-                    $Validation ? $true : $_.Id_
+                    $Validation ? $true : $_.id
                 }
                 else {
                     Write-Warning "Find-ObjectIdByReference: Schema mismatch: Expected '$Schema' but got '$($_.objectschema)'"
                     $null
                 }
             }
-            { $_.objectschema -and -not $Schema } { $Validation ? $true : $_.Id_ }
+            { $_.objectschema -and -not $Schema } { $Validation ? $true : $_.id }
             { $_ -is [int64] -or $_ -is [int] } { $Validation ? $true : $_ }
             { $_ -is [string] } {
                 $_result = -1

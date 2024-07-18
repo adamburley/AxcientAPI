@@ -8,15 +8,15 @@ Describe 'Get-Client' {
             New-Variable -Name InvocationEndpoint -Value $Endpoint -Scope Script -Force
             if ($Endpoint -eq 'client/111') {
                 [PSCustomObject]@{
-                    Id_ = 111
+                    id = 111
                 }
             }
             elseif ($Endpoint -eq 'client/222') {
                 @([PSCustomObject]@{
-                        Id_ = 223
+                        id = 223
                     },
                     [PSCustomObject]@{
-                        Id_ = 224
+                        id = 224
                     }
                 )
             }
@@ -27,11 +27,11 @@ Describe 'Get-Client' {
         Initialize-AxcientAPI -ApiKey 'pesterapikey' -MockServer
         
         $clientObject = [PSCustomObject]@{
-            Id_          = 2
+            id          = 2
             objectschema = 'client'
         }
         $deviceObject = [PSCustomObject]@{
-            Id_          = 42
+            id          = 42
             objectschema = 'device'
         }
     }

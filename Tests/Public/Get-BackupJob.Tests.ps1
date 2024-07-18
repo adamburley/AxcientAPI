@@ -20,7 +20,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = 1
                 device_id = 2
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             { Get-BackupJob -Job $jobObject } | Should -Not -Throw
@@ -30,7 +30,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = $null
                 device_id = $null
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             { Get-BackupJob -Job $jobObject -Client 4 -Device 6 } | Should -Not -Throw
@@ -39,7 +39,7 @@ Describe 'Get-BackupJob' {
         It 'Accepts a Device object with Client property' {
             $deviceObject = [PSCustomObject]@{
                 client_id = 1
-                Id_ = 2
+                id = 2
                 objectschema = 'device'
             }
             { Get-BackupJob -Device $deviceObject } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe 'Get-BackupJob' {
         It 'Accepts a Device object without Client property' {
             $deviceObject = [PSCustomObject]@{
                 client_id = $null
-                Id_ = 2
+                id = 2
                 objectschema = 'device'
             }
             { Get-BackupJob -Device $deviceObject -Client 4 } | Should -Not -Throw
@@ -56,7 +56,7 @@ Describe 'Get-BackupJob' {
         }
         It 'Accepts a Client object' {
             $clientObject = [PSCustomObject]@{
-                Id_ = 1
+                id = 1
                 objectschema = 'client'
             }
             { Get-BackupJob -Client $clientObject -Device 12 } | Should -Not -Throw
@@ -66,7 +66,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = 1
                 device_id = 2
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             $jobObject | Get-BackupJob
@@ -76,7 +76,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = $null
                 device_id = 2
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             $jobObject | Get-BackupJob -Client 4
@@ -85,7 +85,7 @@ Describe 'Get-BackupJob' {
         It 'Accepts a Device object from the pipeline' {
             $deviceObject = [PSCustomObject]@{
                 client_id = 1
-                Id_ = 2
+                id = 2
                 objectschema = 'device'
             }
             $deviceObject | Get-BackupJob
@@ -94,7 +94,7 @@ Describe 'Get-BackupJob' {
         It 'Accepts a Device object from the pipeline without a client id' {
             $deviceObject = [PSCustomObject]@{
                 client_id = $null
-                Id_ = 2
+                id = 2
                 objectschema = 'device'
             }
             $deviceObject | Get-BackupJob -Client 4
@@ -104,7 +104,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = 1
                 device_id = 2
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             { Get-BackupJob -Job $jobObject -Device 4 } | Should -Not -Throw
@@ -114,7 +114,7 @@ Describe 'Get-BackupJob' {
             $jobObject = [PSCustomObject]@{
                 client_id = 1
                 device_id = 2
-                Id_ = 3
+                id = 3
                 objectschema = 'job'
             }
             { Get-BackupJob -Job $jobObject -Client 4 -Device 12 } | Should -Not -Throw
