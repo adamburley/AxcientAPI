@@ -54,14 +54,14 @@ function Get-BackupJob {
     process {
         if ($InputObject.objectschema -eq 'job' -xor $PSBoundParameters.ContainsKey('Job')) {
             $_io = $InputObject ?? $Job
-            $_jobId = $_io.Id_
+            $_jobId = $_io | Find-ObjectIdByReference
             $_clientId = $_io.client_id ?? $clientParamID
             $_deviceId = $_io.device_id ?? $deviceParamID
             Write-Debug "Get-BackupJob: Per-Job flow: Client: $_clientId, Device: $_deviceId, Job: $_jobId"
             $_endpoint = "client/$_clientId/device/$_deviceId/job/$_jobId"
             if (-not ($_clientId -and $_deviceId)) {
                 Write-Error "Missing client ID or device ID on job object. Specify with -Client and -Device parameters."
-                continue
+                return
             }
         }
         elseif ($InputObject.objectschema -eq 'device' -xor $PSBoundParameters.ContainsKey('Device')) {
@@ -72,7 +72,7 @@ function Get-BackupJob {
             $_endpoint = "client/$_clientId/device/$_deviceId/job"
             if (-not $_clientId) {
                 Write-Error "Missing client ID on device object. Specify with -Client parameter."
-                continue
+                return
             }
         }
         else {
@@ -85,7 +85,7 @@ function Get-BackupJob {
             else {
                 Write-Error "At least Device and Client ID must be specified as an object member or via parameters."
             }
-            continue
+            return
         }
         Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
             $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |

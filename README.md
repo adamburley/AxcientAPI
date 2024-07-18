@@ -90,6 +90,8 @@ Where endpoints require such data - for example _Get-BackupJob_ - these properti
 
 In cases where a parent ID is not available - such as calling _Get-Device_ with a specified Device ID integer - the property is present, but empty. You can specify the requisite value by populating the property or by passing the value as a parameter where needed.
 
+**⚠️ Property value preferred**: If a value like a client ID is passed by parameter but is already present in another object such as a Device or Job, the parameter is ignored.
+
 ```PowerShell
 # Client ID is available in the Device object
 PS > $device = Get-Device -Client 42 | Select -First 1
