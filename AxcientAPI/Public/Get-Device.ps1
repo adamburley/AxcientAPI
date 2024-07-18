@@ -4,7 +4,8 @@ Retrieves information about devices.
 
 .DESCRIPTION
 Retrieves information about protected devices, including agent status, version, IP Address,
-host OS, and more. You can specify by Client or Device.
+host OS, and more. You can specify by Client or Device. If no parameters are provided, the
+function returns all devices available under the authenticated account.
 
 .PARAMETER Client
 Client to retrieve a list of devices for. Accepts one or more integer client IDs or objects.
@@ -35,14 +36,14 @@ Get-Device -Device 12345
 Get-Device -Device $myDevice
 #>
 function Get-Device {
-    [CmdletBinding(DefaultParameterSetName = 'Client')]
+    [CmdletBinding(DefaultParameterSetName = 'None')]
     [OutputType([PSCustomObject], [PSCustomObject[]])]
     param (
-        [Parameter(ValueFromPipeline, Mandatory, ParameterSetName = 'Client')]
+        [Parameter(ValueFromPipeline, ParameterSetName = 'Client')]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object[]]$Client,
 
-        [Parameter(Mandatory, ParameterSetName = 'Device')]
+        [Parameter(ParameterSetName = 'Device')]
         [Alias('Id')]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object[]]$Device
@@ -57,13 +58,18 @@ function Get-Device {
                 }
             }
         }
-        else {
+        elseif ($PSCmdlet.ParameterSetName -eq 'Client') {
             foreach ($thisClient in $Client) {
                 $_clientId = Find-ObjectIdByReference $thisClient
                 $_endpoint = "client/$_clientId/device"
                 Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
-                    $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru 
+                    $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
                 }
+            }
+        }
+        else {
+            Invoke-AxcientAPI -Endpoint 'device' -Method Get | Foreach-Object {
+                $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
             }
         }
     }
