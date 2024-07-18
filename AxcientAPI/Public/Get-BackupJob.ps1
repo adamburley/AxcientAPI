@@ -67,7 +67,7 @@ function Get-BackupJob {
         elseif ($InputObject.objectschema -eq 'device' -xor $PSBoundParameters.ContainsKey('Device')) {
             $_io = $InputObject ?? $Device
             $_clientId = $_io.client_id ?? $clientParamID
-            $_deviceId = $_io.Id_ ?? $deviceParamID
+            $_deviceId = $_io.id ?? $deviceParamID
             Write-Debug "Get-BackupJob: Device flow: Client: $_clientId, Device: $_deviceId, Job: $_jobId"
             $_endpoint = "client/$_clientId/device/$_deviceId/job"
             if (-not $_clientId) {

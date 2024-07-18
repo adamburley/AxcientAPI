@@ -12,7 +12,7 @@ Describe "Initialize-AxcientAPI" {
     It "should set the production URL as a script variable" {
         Initialize-AxcientAPI -ApiKey "pesterapikey"
         InModuleScope -ModuleName AxcientAPI {
-            $AxcientBaseUrl | Should -Be 'https://axapi.developer.axcient.com/x360recover'
+            $AxcientBaseUrl | Should -Be 'https://axapi.axcient.com/x360recover'
         }
     }
     It "should set the mock URL as a script variable" {

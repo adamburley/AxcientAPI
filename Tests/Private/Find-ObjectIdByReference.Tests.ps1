@@ -7,7 +7,7 @@ Describe "Find-ObjectIdByReference" {
         Context "Successful results" {
             BeforeAll{
                 $testDevice = [PSCustomObject]@{
-                    Id_ = 42
+                    id = 42
                     objectschema = 'device'
                 }
             }
@@ -49,7 +49,7 @@ Describe "Find-ObjectIdByReference" {
             BeforeAll {
                 Mock Write-Warning { }
                 $testDevice = [PSCustomObject]@{
-                    Id_ = 42
+                    id = 42
                     objectschema = 'device'
                 }
             }

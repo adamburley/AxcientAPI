@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.1//EN" "report.dtd"[]>
-<report name="Pester (07/18/2024 09:15:14)">
-  <sessioninfo id="this" start="1721294111604" dump="1721294114480" />
+<report name="Pester (07/18/2024 10:29:16)">
+  <sessioninfo id="this" start="1721298554123" dump="1721298556712" />
   <package name="AxcientAPI">
     <class name="AxcientAPI/AxcientAPI" sourcefilename="AxcientAPI.psm1">
       <method name="Find-ObjectIdByReference" desc="()" line="40">
@@ -39,33 +39,33 @@
         <counter type="LINE" missed="0" covered="12" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <method name="Get-Device" desc="()" line="579">
-        <counter type="INSTRUCTION" missed="0" covered="19" />
-        <counter type="LINE" missed="0" covered="15" />
+      <method name="Get-Device" desc="()" line="580">
+        <counter type="INSTRUCTION" missed="4" covered="18" />
+        <counter type="LINE" missed="2" covered="14" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <method name="Get-Organization" desc="()" line="634">
+      <method name="Get-Organization" desc="()" line="639">
         <counter type="INSTRUCTION" missed="0" covered="2" />
         <counter type="LINE" missed="0" covered="1" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <method name="Get-RestorePoint" desc="()" line="663">
+      <method name="Get-RestorePoint" desc="()" line="668">
         <counter type="INSTRUCTION" missed="9" covered="0" />
         <counter type="LINE" missed="7" covered="0" />
         <counter type="METHOD" missed="1" covered="0" />
       </method>
-      <method name="Get-Vault" desc="()" line="728">
+      <method name="Get-Vault" desc="()" line="733">
         <counter type="INSTRUCTION" missed="23" covered="0" />
         <counter type="LINE" missed="19" covered="0" />
         <counter type="METHOD" missed="1" covered="0" />
       </method>
-      <method name="Initialize-AxcientAPI" desc="()" line="813">
+      <method name="Initialize-AxcientAPI" desc="()" line="818">
         <counter type="INSTRUCTION" missed="0" covered="6" />
         <counter type="LINE" missed="0" covered="4" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <counter type="INSTRUCTION" missed="116" covered="131" />
-      <counter type="LINE" missed="95" covered="98" />
+      <counter type="INSTRUCTION" missed="120" covered="130" />
+      <counter type="LINE" missed="97" covered="97" />
       <counter type="METHOD" missed="5" covered="7" />
       <counter type="CLASS" missed="0" covered="1" />
     </class>
@@ -217,64 +217,65 @@
       <line nr="528" mi="0" ci="1" mb="0" cb="0" />
       <line nr="529" mi="0" ci="1" mb="0" cb="0" />
       <line nr="531" mi="2" ci="2" mb="0" cb="0" />
-      <line nr="579" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="584" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="588" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="580" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="585" mi="0" ci="1" mb="0" cb="0" />
       <line nr="589" mi="0" ci="1" mb="0" cb="0" />
       <line nr="590" mi="0" ci="1" mb="0" cb="0" />
       <line nr="591" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="592" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="592" mi="0" ci="1" mb="0" cb="0" />
       <line nr="593" mi="0" ci="2" mb="0" cb="0" />
-      <line nr="594" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="594" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="598" mi="0" ci="1" mb="0" cb="0" />
       <line nr="599" mi="0" ci="1" mb="0" cb="0" />
       <line nr="600" mi="0" ci="1" mb="0" cb="0" />
       <line nr="601" mi="0" ci="1" mb="0" cb="0" />
       <line nr="602" mi="0" ci="2" mb="0" cb="0" />
       <line nr="603" mi="0" ci="2" mb="0" cb="0" />
-      <line nr="604" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="634" mi="0" ci="2" mb="0" cb="0" />
-      <line nr="663" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="667" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="608" mi="2" ci="0" mb="0" cb="0" />
+      <line nr="609" mi="2" ci="0" mb="0" cb="0" />
+      <line nr="639" mi="0" ci="2" mb="0" cb="0" />
       <line nr="668" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="669" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="670" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="671" mi="1" ci="0" mb="0" cb="0" />
       <line nr="672" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="728" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="751" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="752" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="753" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="673" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="674" mi="2" ci="0" mb="0" cb="0" />
+      <line nr="675" mi="2" ci="0" mb="0" cb="0" />
+      <line nr="676" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="677" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="733" mi="1" ci="0" mb="0" cb="0" />
       <line nr="756" mi="1" ci="0" mb="0" cb="0" />
       <line nr="757" mi="1" ci="0" mb="0" cb="0" />
       <line nr="758" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="760" mi="1" ci="0" mb="0" cb="0" />
       <line nr="761" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="762" mi="1" ci="0" mb="0" cb="0" />
       <line nr="763" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="764" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="765" mi="1" ci="0" mb="0" cb="0" />
       <line nr="766" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="767" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="768" mi="1" ci="0" mb="0" cb="0" />
       <line nr="769" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="770" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="771" mi="1" ci="0" mb="0" cb="0" />
       <line nr="772" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="773" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="776" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="779" mi="4" ci="0" mb="0" cb="0" />
-      <line nr="813" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="814" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="815" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="816" mi="0" ci="3" mb="0" cb="0" />
-      <counter type="INSTRUCTION" missed="116" covered="131" />
-      <counter type="LINE" missed="95" covered="98" />
+      <line nr="774" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="775" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="777" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="778" mi="2" ci="0" mb="0" cb="0" />
+      <line nr="781" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="784" mi="4" ci="0" mb="0" cb="0" />
+      <line nr="818" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="819" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="820" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="821" mi="0" ci="3" mb="0" cb="0" />
+      <counter type="INSTRUCTION" missed="120" covered="130" />
+      <counter type="LINE" missed="97" covered="97" />
       <counter type="METHOD" missed="5" covered="7" />
       <counter type="CLASS" missed="0" covered="1" />
     </sourcefile>
-    <counter type="INSTRUCTION" missed="116" covered="131" />
-    <counter type="LINE" missed="95" covered="98" />
+    <counter type="INSTRUCTION" missed="120" covered="130" />
+    <counter type="LINE" missed="97" covered="97" />
     <counter type="METHOD" missed="5" covered="7" />
     <counter type="CLASS" missed="0" covered="1" />
   </package>
-  <counter type="INSTRUCTION" missed="116" covered="131" />
-  <counter type="LINE" missed="95" covered="98" />
+  <counter type="INSTRUCTION" missed="120" covered="130" />
+  <counter type="LINE" missed="97" covered="97" />
   <counter type="METHOD" missed="5" covered="7" />
   <counter type="CLASS" missed="0" covered="1" />
 </report>

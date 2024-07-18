@@ -8,11 +8,11 @@ Describe "Get-Device" {
         Mock -ModuleName AxcientAPI -CommandName Write-Warning { }
         Initialize-AxcientAPI -ApiKey "pesterapikey" -MockServer
         $clientObject = [PSCustomObject]@{
-            Id_ = 2
+            id = 2
             objectschema = 'client'
         }
         $deviceObject = [PSCustomObject]@{
-            Id_ = 42
+            id = 42
             objectschema = 'device'
         }
     }    
