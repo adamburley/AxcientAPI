@@ -17,14 +17,14 @@ Device objects
 An Autoverify object or array of Autoverify objects.
 
 .EXAMPLE
-Get-AutoVerify -Device $device1, $device2
+Get-DeviceAutoVerify -Device $device1, $device2
 Retrieves auto-verify information for $device1 and $device2.
 
 .EXAMPLE
-$clientDevices | Get-AutoVerify
+$clientDevices | Get-DeviceAutoVerify
 Returns auto-verify information for all devices.
 #>
-function Get-AutoVerify {
+function Get-DeviceAutoVerify {
     [CmdletBinding()]
     [OutputType([PSCustomObject], [PSCustomObject[]])]
     param (

@@ -16,9 +16,9 @@ Restore point object or array of Restore point objects
 
 .EXAMPLE
 $devices = Get-Device
-PS > $restorePoints = $devices | Get-RestorePoint
+PS > $restorePoints = $devices | Get-DeviceRestorePoint
 #>
-function Get-RestorePoint {
+function Get-DeviceRestorePoint {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]

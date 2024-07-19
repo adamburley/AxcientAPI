@@ -1,29 +1,39 @@
-# Get-RestorePoint
+# Get-DeviceAutoVerify
 
 ## SYNOPSIS
-Retrieves restore points for a device.
+Retrieves auto-verify information for one or more devices.
 
 ## SYNTAX
 
 ```
-Get-RestorePoint [-Device] <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Get-DeviceAutoVerify [-Device] <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-For each specified device, returns an object with current status and a list of restore points.
+Returns information about auto-verify tests.
+Each device returns an auto-verify object with one or
+more runs detailed.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-$devices = Get-Device
-PS > $restorePoints = $devices | Get-RestorePoint
+Get-DeviceAutoVerify -Device $device1, $device2
+Retrieves auto-verify information for $device1 and $device2.
+```
+
+### EXAMPLE 2
+```
+$clientDevices | Get-DeviceAutoVerify
+Returns auto-verify information for all devices.
 ```
 
 ## PARAMETERS
 
 ### -Device
-One or more Device objects or integers to retrieve restore points for.
+The device or devices to retrieve auto-verify information.
+Accepts integer IDs or Device objects.
+Accepts from the pipeline.
 
 ```yaml
 Type: Object[]
@@ -57,10 +67,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Restore point object
+### Device objects
 ## OUTPUTS
 
-### Restore point object or array of Restore point objects
+### An Autoverify object or array of Autoverify objects.
 ## NOTES
 
 ## RELATED LINKS
