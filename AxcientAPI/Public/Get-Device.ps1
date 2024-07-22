@@ -22,6 +22,10 @@ Client objects
 A Device object or array of Device objects
 
 .EXAMPLE
+Get-Device
+# Returns a list of all devices available under the authenticated account.
+
+.EXAMPLE
 $client | Get-Device
 # Returns a list of devices for the given client
 

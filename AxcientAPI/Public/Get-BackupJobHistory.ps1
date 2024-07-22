@@ -25,7 +25,7 @@ $job | Get-BackupJobHistory
 This endpoint currently has a bug. Function logic is cohesive but untested. It may be attempted, a warning will display. Once bug is resolved this warning will be removed. #GH-3 -2024-07-11
 #>
 function Get-BackupJobHistory {
-    [CmdletBinding(DefaultParameterSetName = 'Device')]
+    [CmdletBinding()]
     param (
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Device,

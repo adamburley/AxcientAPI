@@ -31,22 +31,28 @@ function returns all devices available under the authenticated account.
 
 ### EXAMPLE 1
 ```
+Get-Device
+# Returns a list of all devices available under the authenticated account.
+```
+
+### EXAMPLE 2
+```
 $client | Get-Device
 # Returns a list of devices for the given client
 ```
 
-### EXAMPLE 2
+### EXAMPLE 3
 ```
 Get-Device -Client $client,$client2
 # Returns a list of devices for two clients
 ```
 
-### EXAMPLE 3
+### EXAMPLE 4
 ```
 Get-Device -Device 12345
 ```
 
-### EXAMPLE 4
+### EXAMPLE 5
 ```
 Get-Device -Device $myDevice
 ```
