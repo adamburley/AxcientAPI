@@ -23,7 +23,8 @@ Write-Host "`nTesting Module..." -ForegroundColor Yellow
 $pesterResults = & .\dev\test.ps1
 
 # Rebuild Docs
-New-MarkdownHelp -Module AxcientAPI -OutputFolder .\docs -NoMetadata -ExcludeDontShow -Force
+Import-Module .\Output\AxcientAPI -Force
+New-MarkdownHelp -Module AxcientAPI -OutputFolder .\docs -ExcludeDontShow -Force -NoMetadata
 
 # Readme Updates
 $ReadmeContent = Get-Content -Path '.\README.md' -Raw
@@ -42,7 +43,6 @@ $ReadmeContent = $ReadmeContent -replace "\!\[Code Coverage\]\(.*?\)", "![Code C
 
 # Create summary page
 $summaryContent = "## Functions`n`n| Function | Synopsis |`n| --- | --- |`n"
-Import-Module .\Output\AxcientAPI -Force
 $commands = (Get-Module -Name AxcientAPI).ExportedCommands.Keys
 foreach ($command in $commands) {
     $cHelpSummary = Get-Help -Name $command -Full | Select-Object -ExpandProperty Synopsis
