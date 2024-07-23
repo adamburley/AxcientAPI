@@ -6,6 +6,9 @@ $requiredModules = @(
     @{ Name = 'ModuleBuilder'; MinimumVersion = '3.1.0'}
     @{ Name = 'Pester'; MinimumVersion = '5.6.0' }
     @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.22.0' }
+    @{ Name = 'PowerShellGet'; MinimumVersion = '2.2.5' }
+    @{ Name = 'Microsoft.PowerShell.PSResourceGet'; MinimumVersion = '1.0.5' }
+    @{ Name = 'platyPS'; MinimumVersion = '0.14.0' }
 )
 $moduleName = 'AxcientAPI'
 $initializeCommand = { Initialize-AxcientAPI -ApiKey ${env:AxcientApiKey-Prod} -ReturnErrors }

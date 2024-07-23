@@ -20,9 +20,35 @@ Write-Host "`nRebuilding Module..." -ForegroundColor Yellow
 Build-Module -Version $Version -SourcePath '.\AxcientAPI\AxcientAPI.psd1' -OutputDirectory '..\Output' -UnversionedOutputDirectory
 
 Write-Host "`nTesting Module..." -ForegroundColor Yellow
-#Import-Module Pester -MinimumVersion 5.6.0
-#Invoke-Pester -Path .\Tests -Output Detailed
-& .\dev\test.ps1
+$pesterResults = & .\dev\test.ps1
 
 # Rebuild Docs
-New-MarkdownHelp -Module AxcientAPI -OutputFolder .\docs -Force -NoMetadata -ExcludeDontShow
+New-MarkdownHelp -Module AxcientAPI -OutputFolder .\docs -NoMetadata -ExcludeDontShow -Force
+
+# Readme Updates
+$ReadmeContent = Get-Content -Path '.\README.md' -Raw
+
+# Update Code coverage icon
+# Thanks to https://wragg.io/add-a-code-coverage-badge-to-your-powershell-deployment-pipeline/
+$codeCoverage = [math]::Round($pesterResults.CodeCoverage.CoveragePercent)
+$BadgeColor = switch ($codeCoverage) {
+    {$_ -in 90..100} { 'brightgreen' }
+    {$_ -in 75..89}  { 'yellow' }
+    {$_ -in 60..74}  { 'orange' }
+    default          { 'red' }
+}
+
+$ReadmeContent = $ReadmeContent -replace "\!\[Code Coverage\]\(.*?\)", "![Code Coverage](https://img.shields.io/badge/coverage-$CodeCoverage%25-$BadgeColor.svg?maxAge=60)"
+
+# Create summary page
+$summaryContent = "## Functions`n`n"
+$docFiles = Get-ChildItem -Path '.\docs' -File
+foreach ($file in $docFiles) {
+    $fileName = $file.BaseName
+    $fileLink = "[${fileName}](./docs/${fileName})"
+    $summaryContent += "- ${fileLink}`n"
+}
+$summaryContent += "`n#"
+$ReadmeContent = [regex]::Replace($ReadmeContent,"## Functions\n\n(?'helpfiles'.*?)\n\n#{1}",$summaryContent,[System.Text.RegularExpressions.RegexOptions]::Singleline)
+
+$ReadmeContent | Set-Content -Path '.\README.md'

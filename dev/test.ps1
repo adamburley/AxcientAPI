@@ -11,5 +11,7 @@ $config.CodeCoverage.OutputPath = ".\Tests\coverage.xml"
 
 $config.Output.Verbosity = 'Detailed'
 
+$config.Run.PassThru = $true
+
 # Run Pester tests using the configuration you've created
 Invoke-Pester -Configuration $config
