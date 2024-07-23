@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.1//EN" "report.dtd"[]>
-<report name="Pester (07/22/2024 16:40:26)">
-  <sessioninfo id="this" start="1721666423034" dump="1721666426524" />
+<report name="Pester (07/23/2024 16:48:00)">
+  <sessioninfo id="this" start="1721753275753" dump="1721753280728" />
   <package name="AxcientAPI">
     <class name="AxcientAPI/AxcientAPI" sourcefilename="AxcientAPI.psm1">
       <method name="Find-ObjectIdByReference" desc="()" line="40">
@@ -45,9 +45,9 @@
         <counter type="METHOD" missed="0" covered="1" />
       </method>
       <method name="Get-DeviceRestorePoint" desc="()" line="645">
-        <counter type="INSTRUCTION" missed="9" covered="0" />
-        <counter type="LINE" missed="7" covered="0" />
-        <counter type="METHOD" missed="1" covered="0" />
+        <counter type="INSTRUCTION" missed="0" covered="9" />
+        <counter type="LINE" missed="0" covered="7" />
+        <counter type="METHOD" missed="0" covered="1" />
       </method>
       <method name="Get-Organization" desc="()" line="684">
         <counter type="INSTRUCTION" missed="0" covered="2" />
@@ -55,18 +55,18 @@
         <counter type="METHOD" missed="0" covered="1" />
       </method>
       <method name="Get-Vault" desc="()" line="737">
-        <counter type="INSTRUCTION" missed="23" covered="0" />
-        <counter type="LINE" missed="19" covered="0" />
-        <counter type="METHOD" missed="1" covered="0" />
+        <counter type="INSTRUCTION" missed="0" covered="23" />
+        <counter type="LINE" missed="0" covered="19" />
+        <counter type="METHOD" missed="0" covered="1" />
       </method>
       <method name="Initialize-AxcientAPI" desc="()" line="822">
         <counter type="INSTRUCTION" missed="0" covered="6" />
         <counter type="LINE" missed="0" covered="4" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <counter type="INSTRUCTION" missed="68" covered="182" />
-      <counter type="LINE" missed="51" covered="143" />
-      <counter type="METHOD" missed="2" covered="10" />
+      <counter type="INSTRUCTION" missed="36" covered="214" />
+      <counter type="LINE" missed="25" covered="169" />
+      <counter type="METHOD" missed="0" covered="12" />
       <counter type="CLASS" missed="0" covered="1" />
     </class>
     <sourcefile name="AxcientAPI.psm1">
@@ -233,49 +233,49 @@
       <line nr="611" mi="0" ci="2" mb="0" cb="0" />
       <line nr="612" mi="0" ci="1" mb="0" cb="0" />
       <line nr="613" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="645" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="649" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="650" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="651" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="652" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="653" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="654" mi="1" ci="0" mb="0" cb="0" />
+      <line nr="645" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="649" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="650" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="651" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="652" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="653" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="654" mi="0" ci="1" mb="0" cb="0" />
       <line nr="684" mi="0" ci="2" mb="0" cb="0" />
-      <line nr="737" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="760" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="761" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="762" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="765" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="766" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="767" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="769" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="770" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="772" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="773" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="775" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="776" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="778" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="779" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="781" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="782" mi="2" ci="0" mb="0" cb="0" />
-      <line nr="785" mi="1" ci="0" mb="0" cb="0" />
-      <line nr="788" mi="4" ci="0" mb="0" cb="0" />
+      <line nr="737" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="760" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="761" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="762" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="765" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="766" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="767" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="769" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="770" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="772" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="773" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="775" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="776" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="778" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="779" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="781" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="782" mi="0" ci="2" mb="0" cb="0" />
+      <line nr="785" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="788" mi="0" ci="4" mb="0" cb="0" />
       <line nr="822" mi="0" ci="1" mb="0" cb="0" />
       <line nr="823" mi="0" ci="1" mb="0" cb="0" />
       <line nr="824" mi="0" ci="1" mb="0" cb="0" />
       <line nr="825" mi="0" ci="3" mb="0" cb="0" />
-      <counter type="INSTRUCTION" missed="68" covered="182" />
-      <counter type="LINE" missed="51" covered="143" />
-      <counter type="METHOD" missed="2" covered="10" />
+      <counter type="INSTRUCTION" missed="36" covered="214" />
+      <counter type="LINE" missed="25" covered="169" />
+      <counter type="METHOD" missed="0" covered="12" />
       <counter type="CLASS" missed="0" covered="1" />
     </sourcefile>
-    <counter type="INSTRUCTION" missed="68" covered="182" />
-    <counter type="LINE" missed="51" covered="143" />
-    <counter type="METHOD" missed="2" covered="10" />
+    <counter type="INSTRUCTION" missed="36" covered="214" />
+    <counter type="LINE" missed="25" covered="169" />
+    <counter type="METHOD" missed="0" covered="12" />
     <counter type="CLASS" missed="0" covered="1" />
   </package>
-  <counter type="INSTRUCTION" missed="68" covered="182" />
-  <counter type="LINE" missed="51" covered="143" />
-  <counter type="METHOD" missed="2" covered="10" />
+  <counter type="INSTRUCTION" missed="36" covered="214" />
+  <counter type="LINE" missed="25" covered="169" />
+  <counter type="METHOD" missed="0" covered="12" />
   <counter type="CLASS" missed="0" covered="1" />
 </report>
