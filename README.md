@@ -1,4 +1,5 @@
-# Axcient x360 Recover API
+![Axcient Logo](https://axcient.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2023/11/logo_main.png.webp)
+# Axcient x360Recover API
 
 ![PowerShell Gallery Platform Support](https://img.shields.io/powershellgallery/p/axcientapi)
 ![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/axcientapi)
@@ -7,17 +8,15 @@
 [![#v-axcient on MSPGeek Discord](https://img.shields.io/discord/801971115013963818?logo=discord&logoColor=white&label=MSPGeek%20%23v-axcient)](https://discord.com/channels/801971115013963818/1020766171978543204)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/adamburley/AxcientAPI)
-![Code Coverage](https://img.shields.io/badge/coverage-73%25-orange.svg?maxAge=60)
+![Code Coverage](https://img.shields.io/badge/coverage-86%25-yellow.svg?maxAge=60)
 
-In June 2024, Axcient announced a public API for their x360 Recover backup product is in early access.
+In June 2024, Axcient announced a public API for their x360Recover backup product is in early access.
 
 [Announcement post](https://axcient.com/blog/axcient-public-apis/)
 
-Currently Axcient is accepting requests for access to the production environment, and offers a mock / dev environment through a Swagger editor at https://developer.axcient.com/. An OpenAPI YAML file is also available at that page.
+Currently Axcient is accepting requests for access to the production environment, and offers a mock / dev environment, Swagger Editor and OpenAPI schema at https://developer.axcient.com/.
 
-This module conforms to endpoints published as of 6/25/2024 and as such supports _read-only_ access and user-based API keys only. Future changes will be accomodated as they are announced.
-
-As the API itself is in early access and likely to change, this should not be considered a production-ready module. However, I have made efforts to introduce no novel bugs. Please raise issues as they are found.
+⚠️ As the API itself is in early access and likely to change, this should not be considered a production-ready module. However, I have made efforts to introduce no novel bugs. Please raise issues as they are found.
 
 ## Status
 
@@ -49,7 +48,7 @@ objectschema  : organization
 
 ## Functions
 
-| Function | Description |
+| Function | Synopsis |
 | --- | --- |
 | [Get-Appliance](./docs/Get-Appliance.md) | Get information about an Appliance. |
 | [Get-BackupJob](./docs/Get-BackupJob.md) | Get backup job information for a device. |
@@ -76,6 +75,7 @@ You can read more about the implementation of each at the links above.
 1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
 2. [ ] Consider custom objects / classes
 3. [ ] Testing with Pester [*In progress*]
+
 
 
 

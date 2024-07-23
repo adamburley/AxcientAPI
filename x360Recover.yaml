@@ -6,7 +6,7 @@ info:
     
     An API (Application Programming Interface) allows different software applications to communicate and interact with each other. Our API exposes various endpoints that enable developers to leverage our services programmatically. Explore the available endpoints below to start your integration. The Public API is in Early Access and endpoints are subject to change.  As we move out of early access, endpoints will become versioned and we will make a best effort to maintain backwards compatability.  Our API is free for partners and vendors to consume and you can get started by calling our Mock Servers.
     
-    **API Key Creation:** Authorization uses the header based format of x-api-key.  Keys can be created from within the Settings section of the x360Portal. To find information on how to create API keys, visit [help.axcient.com](https://help.axcient.com) for detailed screenshots.
+    **API Key Creation:** Authorization uses the header based format of x-api-key.  Keys can be created from within the Settings section of the x360Portal. To find information on how to create API keys, visit [help.axcient.com](https://help.axcient.com/360001190313-Axcient-x360Portal-/generating-and-managing-api-keys) for detailed screenshots.
     
     **Mock Servers:** If you want to test against mock servers, use [https://ax-pub-recover.wiremockapi.cloud/](https://ax-pub-recover.wiremockapi.cloud/) as your base URL.  The Mock servers validate that you are sending the **x-api-header** but do not validate content.
     
@@ -15,9 +15,8 @@ info:
       - **Vendor Support:** Vendors should email [api@axcient.com](mailto:api@axcient.com) for any required support.
       
     **Terms and Conditions:** [https://axcient.com/terms-and-conditions/](https://axcient.com/terms-and-conditions/)
-  version: 0.2.1
 servers:
-  - url: https://axapi.developer.axcient.com/x360recover
+  - url: https://axapi.axcient.com/x360recover
     description: Production
   - url: https://ax-pub-recover.wiremockapi.cloud/
     description: Mock Server
@@ -294,6 +293,48 @@ paths:
         default:
           description: Unexpected error
       x-openapi-router-controller: app.mod_public_api.controllers.devices_controller
+  /device:
+    get:
+      tags:
+        - device
+      summary: Returns information about all devices
+      description: This request returns information about all devices
+      operationId: get_devices_by_org_id_org_level
+      parameters:
+        - name: limit
+          in: query
+          description: Records limit for pagination
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: offset
+          in: query
+          description: Records offset for pagination
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: A JSON information about device
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of devices
+                items:
+                  $ref: '#/components/schemas/device'
+                x-content-type: application/json
+        "401":
+          description: Access token is missing or invalid
+        "404":
+          description: A device with the specified ID was not found.
+        default:
+          description: Unexpected error
+      security:
+        - x-api-key: [ ]
+      x-openapi-router-controller: app.mod_public_api.controllers.devices_controller
   /client/{client_id}/device:
     get:
       tags:
@@ -407,15 +448,6 @@ paths:
       description: This request returns information about job history by it's job ID.
       operationId: get_job_history_org_level
       parameters:
-        - name: org_id
-          in: path
-          description: The ID of the organization.
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
-            format: int64
         - name: client_id
           in: path
           description: The unique ID of the client.
@@ -769,7 +801,7 @@ components:
     appliance:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique appliance identifier
           format: int64
@@ -777,6 +809,10 @@ components:
           type: string
           description: 4-symbols SID of appliance
           example: abcd
+        client_id:
+          type: integer
+          description: Parent client ID
+          format: int64
         alias:
           type: string
           description: Appliance alias
@@ -839,12 +875,12 @@ components:
         devices:
           ip_address: 10.2.23.2
           os: WINDOWS
-          id_: 6
+          id: 6
           name: RMC_device
           type: SERVER
           local_usage: 132153611
           latest_local_rp: 2023-01-20T04:56:07Z
-        id_: 1
+        id: 1
         active: true
         service_id: abcd
         ip_address: 10.2.22.1
@@ -858,20 +894,20 @@ components:
         tunnel_status: UP
         last_tunnel_up: 2023-01-20T04:56:07Z
         model:
-          id_: 392
+          id: 392
           name: BYOD
         package:
-          id_: 10
+          id: 10
           name: Axcient Replibit
         software_version:
-          id_: 15
+          id: 15
           version: 10.1.0
         health_status: TROUBLED
         health_status_reason: FULL_90_PERCENT
     short_appliance:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique appliance identifier
           format: int64
@@ -906,7 +942,7 @@ components:
             - HARDWARE
             - VIRTUAL
       example:
-        id_: 1
+        id: 1
         active: true
         service_id: abcd
         ip_address: 10.2.22.1
@@ -917,7 +953,7 @@ components:
     vault:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique vault identifier
           format: int64
@@ -994,10 +1030,10 @@ components:
           - appliance_id: 1
             ip_address: 10.2.22.2
             os: DoorsIX
-            id_: 6
+            id: 6
             name: RMC_device
             client:
-              id_: 26
+              id: 26
               name: name
             type: SERVER
             local_usage: 132153611
@@ -1007,10 +1043,10 @@ components:
           - appliance_id: 1
             ip_address: 10.2.12.2
             os: DoorsIX
-            id_: 6
+            id: 6
             name: RMC_device
             client:
-              id_: 26
+              id: 26
               name: name
             type: SERVER
             local_usage: 132153611
@@ -1032,10 +1068,10 @@ components:
         tunnel_status: UP
         name: RMC_Vault
         model:
-          id_: 392
+          id: 392
           name: BYOD
         software_version:
-          id_: 15
+          id: 15
           version: 10.1.0
         replication_data: 456325154
         health_status: NORMAL
@@ -1046,7 +1082,7 @@ components:
     short_vault:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique vault ID
           format: int64
@@ -1072,14 +1108,14 @@ components:
           type: string
           description: name of vault
       example:
-        id_: 234
+        id: 234
         type: Cloud
         latest_vault_rp: 2000-01-23T04:56:07Z
         device_usage: 1254635435
     device:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique device identifier
           format: int64
@@ -1087,6 +1123,10 @@ components:
           type: string
           description: Name of the device
           example: RMC_device
+        client_id:
+          type: integer
+          description: Parent client ID
+          format: int64
         type:
           type: string
           description: Type of the device
@@ -1196,20 +1236,20 @@ components:
           bits: 64
           os_name: Doors IX
           device_type: Server
-        id_: 0
+        id: 0
         jobs:
-          - id_: 65345
+          - id: 65345
             name: BackupJob1
             latest_rp: 2000-01-23T04:56:07Z
-          - id_: 65346
+          - id: 65346
             name: BackupJob2
             latest_rp: 2000-01-22T04:56:07Z
         vaults:
-          - id_: 234
+          - id: 234
             type: Cloud
             latest_vault_rp: 2000-01-23T04:56:07Z
             device_usage: 1254635435
-          - id_: 234
+          - id: 234
             type: Cloud
             latest_vault_rp: 2000-01-23T04:56:07Z
             device_usage: 1254635435
@@ -1217,7 +1257,7 @@ components:
         local_usage: 132153611
         vault_usage: 132152007
         latest_autoverify_details:
-          id_: 64f972bfbfec2620b7043e21
+          id: 64f972bfbfec2620b7043e21
           rp: 2022-12-13T19:00:01Z
           status: success,
           timestamp: 2022-12-13T19:40:22Z
@@ -1251,7 +1291,7 @@ components:
     short_device:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique device identifier
           format: int64
@@ -1300,10 +1340,10 @@ components:
         appliance_id: 1
         ip_address: 10.2.3.2
         os: DoorsIX
-        id_: 6
+        id: 6
         name: RMC_device
         client:
-          id_: 26
+          id: 26
           name: name
         type: SERVER
         local_usage: 132153611
@@ -1313,7 +1353,7 @@ components:
     short_appliance_device:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique device identifier
           format: int64
@@ -1343,7 +1383,7 @@ components:
           type: string
           description: Time of the last local backup
       example:
-        id_: 1
+        id: 1
         ip_address: 10.2.3.2
         name: RMC_device
         type: SERVER
@@ -1353,7 +1393,7 @@ components:
     short_job:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique job ID
           format: int64
@@ -1363,7 +1403,7 @@ components:
           description: Name of the job
           example: BackupJob123
       example:
-        id_: 65345
+        id: 65345
         name: BackupJob123
     short_brc_job:
       allOf:
@@ -1392,7 +1432,7 @@ components:
     job:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique job ID
           format: int64
@@ -1466,7 +1506,7 @@ components:
     server_model:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique model ID
           format: int64
@@ -1476,12 +1516,12 @@ components:
           description: Model name
           example: BYOD
       example:
-        id_: 392
+        id: 392
         name: BYOD
     package:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique package ID
           format: int64
@@ -1491,12 +1531,12 @@ components:
           description: Package name
           example: Axcient Replibit
       example:
-        id_: 123
+        id: 123
         name: Axcient Replibit
     version:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique version ID
           format: int64
@@ -1506,12 +1546,12 @@ components:
           description: Exact version
           example: 10.1.0
       example:
-        id_: 15
+        id: 15
         version: 10.1.0
     short_client:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique client ID
           format: int64
@@ -1520,12 +1560,12 @@ components:
           type: string
           description: Client name
       example:
-        id_: 26
+        id: 26
         name: name
     client:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique client ID
           format: int64
@@ -1546,7 +1586,7 @@ components:
         devices_counters:
           $ref: '#/components/schemas/client_protected_systems_counters'
       example:
-        id_: 26
+        id: 26
         name: name
         client_code: username
         active: true
@@ -1671,7 +1711,34 @@ components:
     latest_autoverify_details:
       type: object
       properties:
-        id_:
+        id:
+          type: string
+          description: Unique autoverify identifier
+        timestamp:
+          type: string
+          description: Date/time that the last AutoVerify result completed
+        start_timestamp:
+          type: string
+          description: Date/time that the last AutoVerify result started
+        end_timestamp:
+          type: string
+          description: Date/time that the last AutoVerify result completed
+        rp:
+          type: string
+          description: Date/time of the recovery point that was used with the last AutoVerify result
+        status:
+          type: string
+          description: Last autoverify status
+        screenshot_url:
+          type: string
+          description: Latest autoverify screenshot URL
+        screenshot_thumbnail_url:
+          type: string
+          description: Latest autoverify screenshot thumbnail URL
+    autoverify_info:
+      type: object
+      properties:
+        id:
           type: string
           description: Unique autoverify identifier
         timestamp:
@@ -1777,7 +1844,7 @@ components:
     organization:
       type: object
       properties:
-        id_:
+        id:
           type: integer
           description: Unique organization ID
           format: int64
@@ -1842,7 +1909,7 @@ components:
           type: array
           description: Array of autoverify details
           items:
-            $ref: '#/components/schemas/latest_autoverify_details'
+            $ref: '#/components/schemas/autoverify_info'
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid

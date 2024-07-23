@@ -1,6 +1,6 @@
 ## Functions
 
-| Function | Description |
+| Function | Synopsis |
 | --- | --- |
 | [Get-Appliance](./docs/Get-Appliance.md) | Get information about an Appliance. |
 | [Get-BackupJob](./docs/Get-BackupJob.md) | Get backup job information for a device. |
