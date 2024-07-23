@@ -41,14 +41,15 @@ $BadgeColor = switch ($codeCoverage) {
 $ReadmeContent = $ReadmeContent -replace "\!\[Code Coverage\]\(.*?\)", "![Code Coverage](https://img.shields.io/badge/coverage-$CodeCoverage%25-$BadgeColor.svg?maxAge=60)"
 
 # Create summary page
-$summaryContent = "## Functions`n`n"
-$docFiles = Get-ChildItem -Path '.\docs' -File
-foreach ($file in $docFiles) {
-    $fileName = $file.BaseName
-    $fileLink = "[${fileName}](./docs/${fileName})"
-    $summaryContent += "- ${fileLink}`n"
+$summaryContent = "## Functions`n`n| Function | Synopsis |`n| --- | --- |`n"
+Import-Module .\Output\AxcientAPI -Force
+$commands = (Get-Module -Name AxcientAPI).ExportedCommands.Keys
+foreach ($command in $commands) {
+    $cHelpSummary = Get-Help -Name $command -Full | Select-Object -ExpandProperty Synopsis
+    $summaryContent += "| [$command](./docs/$command.md) | $cHelpSummary |`n"
 }
 $summaryContent += "`n#"
+$summaryContent | Set-Content -Path '.\docs\README.md'
 $ReadmeContent = [regex]::Replace($ReadmeContent,"## Functions\n\n(?'helpfiles'.*?)\n\n#{1}",$summaryContent,[System.Text.RegularExpressions.RegexOptions]::Singleline)
 
 $ReadmeContent | Set-Content -Path '.\README.md'
