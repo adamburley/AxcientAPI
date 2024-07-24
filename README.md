@@ -20,15 +20,15 @@ Currently Axcient is accepting requests for access to the production environment
 
 ## Status
 
-Version `0.2.0` reflects July 2024 schema changes.
+Version `0.3.0` and up reflects the July 2024 schema changes.
 
-The module is usable. Testing is ongoing.
+Manual and automated testing against the mock and prod environments is successful.  Please raise issues as found.
 
-Once documentation is complete and additional testing is successful this will be published to the PowerShell Gallery.
+`Get-BackupJobHistory` is currently unavailable due to an API bug (see [#3](https://github.com/adamburley/AxcientAPI/issues/3))
 
 ## Getting Started
 
-**Compatibility**: PowerShell 7 Core. OS Agnostic, works in PS Core / Azure Function Apps
+**Compatibility**: PowerShell 7 Core. OS Agnostic, works in Windows console, PS Core / Azure Function Apps
 
 ```Install-Module AxcientAPI``` or ```Install-PSResource AxcientAPI```
 
@@ -74,7 +74,8 @@ You can read more about the implementation of each at the links above.
 
 1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
 2. [ ] Consider custom objects / classes
-3. [ ] Testing with Pester [*In progress*]
+3. [X] Testing with Pester [*Core testing complete*]
+
 
 
 

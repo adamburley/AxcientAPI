@@ -1,4 +1,4 @@
-# Axcient x360 Recover API Notes
+# Axcient x360Recover API Notes
 
 The goal of this module is to reflect the API as it is at the current time.
 As the API is in beta and under active development, it's understood there will be significant bugs or unexpected results from input.
