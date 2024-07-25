@@ -6,13 +6,13 @@ Get information about vaults
 ## SYNTAX
 
 ### All (Default)
-```
+```PowerShell
 Get-Vault [-Type <String>] [-Active <Boolean>] [-WithUrl <Boolean>] [-Limit <Int32>]
  [-IncludeDevices <Boolean>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Vault
-```
+```PowerShell
 Get-Vault [-Vault <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -23,13 +23,13 @@ information for all vaults you can filter by type, state, and URL presence.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
+### Get a vault by ID
+```PowerShell
 Get-Vault -Vault 12345
 ```
 
-### EXAMPLE 2
-```
+### Get all vaults with filtering
+```PowerShell
 Get-Vault -Type 'Private' -Active $true -WithUrl $true -IncludeDevices $false
 ```
 
@@ -138,31 +138,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Pipeline input is not accepted.
+Pipeline input is not accepted.
+
 ## OUTPUTS
 
-### Returns a Vault object or array of Vault objects
-###     [PSCustomObject],[PScustomObject[]]
-## NOTES
-
-## RELATED LINKS
+Returns a Vault object or array of Vault objects

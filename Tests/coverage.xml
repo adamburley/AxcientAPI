@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE report PUBLIC "-//JACOCO//DTD Report 1.1//EN" "report.dtd"[]>
-<report name="Pester (07/24/2024 15:45:29)">
-  <sessioninfo id="this" start="1721835919204" dump="1721835929768" />
+<report name="Pester (07/24/2024 16:09:00)">
+  <sessioninfo id="this" start="1721837336224" dump="1721837340730" />
   <package name="AxcientAPI">
     <class name="AxcientAPI/AxcientAPI" sourcefilename="AxcientAPI.psm1">
       <method name="Find-ObjectIdByReference" desc="()" line="40">
@@ -59,7 +59,7 @@
         <counter type="LINE" missed="0" covered="19" />
         <counter type="METHOD" missed="0" covered="1" />
       </method>
-      <method name="Initialize-AxcientAPI" desc="()" line="822">
+      <method name="Initialize-AxcientAPI" desc="()" line="832">
         <counter type="INSTRUCTION" missed="0" covered="6" />
         <counter type="LINE" missed="0" covered="4" />
         <counter type="METHOD" missed="0" covered="1" />
@@ -260,10 +260,10 @@
       <line nr="782" mi="0" ci="2" mb="0" cb="0" />
       <line nr="785" mi="0" ci="1" mb="0" cb="0" />
       <line nr="788" mi="0" ci="4" mb="0" cb="0" />
-      <line nr="822" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="823" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="824" mi="0" ci="1" mb="0" cb="0" />
-      <line nr="825" mi="0" ci="3" mb="0" cb="0" />
+      <line nr="832" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="833" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="834" mi="0" ci="1" mb="0" cb="0" />
+      <line nr="835" mi="0" ci="3" mb="0" cb="0" />
       <counter type="INSTRUCTION" missed="36" covered="214" />
       <counter type="LINE" missed="25" covered="169" />
       <counter type="METHOD" missed="0" covered="12" />

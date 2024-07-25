@@ -6,48 +6,45 @@ Get information about an Appliance.
 ## SYNTAX
 
 ### All (Default)
-```
+```PowerShell
 Get-Appliance [-ServiceID <String>] [-IncludeDevices <Boolean>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
 ### Appliance
-```
+```PowerShell
 Get-Appliance [-Appliance <Object>] [-IncludeDevices <Boolean>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
 ### Client
-```
+```PowerShell
 Get-Appliance [-Client <Object>] [-IncludeDevices <Boolean>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
-### Pipeline
-```
-Get-Appliance [-IncludeDevices <Boolean>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
-```
-
 ## DESCRIPTION
 Gets information about appliances.
-Can accept Appliance or Client objects from the pipeline or from parameters.
+Can accept Appliance *or* Client objects from the pipeline or by parameter value.
+
 You can also specify an appliance by its service ID.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
+### All appliances
+```PowerShell
 Get-Appliance
-# Returns all appliances avaialble to the user account at this organization
 ```
+Returns all appliances avaialble to the user account at this organization
 
-### EXAMPLE 2
-```
+
+### Appliance by ID
+```PowerShell
 Get-Appliance -Appliance 12345
 ```
 
-### EXAMPLE 3
-```
+### Appliances for client
+```PowerShell
 $client | Get-Appliance
 ```
 
@@ -64,7 +61,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: true
 Accept wildcard characters: False
 ```
 
@@ -79,7 +76,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: true
 Accept wildcard characters: False
 ```
 
@@ -115,30 +112,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Appliance or Client object
+Appliance or Client object
+
 ## OUTPUTS
 
-### An Appliance object or array or Appliance objects
-## NOTES
-
-## RELATED LINKS
+An Appliance object or array or Appliance objects

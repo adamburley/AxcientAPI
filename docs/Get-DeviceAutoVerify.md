@@ -5,7 +5,7 @@ Retrieves auto-verify information for one or more devices.
 
 ## SYNTAX
 
-```
+```PowerShell
 Get-DeviceAutoVerify [-Device] <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -17,16 +17,18 @@ more runs detailed.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```PowerShell
 Get-DeviceAutoVerify -Device $device1, $device2
-Retrieves auto-verify information for $device1 and $device2.
 ```
 
+Retrieves auto-verify information for $device1 and $device2.
+
 ### EXAMPLE 2
+```PowerShell
+PS > $clientDevices = Get-Device -Client 12
+PS > $clientDevices | Get-DeviceAutoVerify
 ```
-$clientDevices | Get-DeviceAutoVerify
-Returns auto-verify information for all devices.
-```
+Returns auto-verify information for all devices for a client.
 
 ## PARAMETERS
 
@@ -47,30 +49,13 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Device objects
+Device objects
+
 ## OUTPUTS
 
-### An Autoverify object or array of Autoverify objects.
-## NOTES
-
-## RELATED LINKS
+An Autoverify object or array of Autoverify objects.

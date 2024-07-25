@@ -5,55 +5,55 @@ Retrieves information about devices.
 
 ## SYNTAX
 
-### None (Default)
-```
+### All (Default)
+```PowerShell
 Get-Device [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
-
 ### Client
-```
+```PowerShell
 Get-Device [-Client <Object[]>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
-
 ### Device
-```
+```PowerShell
 Get-Device [-Device <Object[]>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Retrieves information about protected devices, including agent status, version, IP Address,
-host OS, and more.
-You can specify by Client or Device.
-If no parameters are provided, the
+host OS, and more. You can specify by Client or Device. If no parameters are provided, the
 function returns all devices available under the authenticated account.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
+### All Devices
+```PowerShell
 Get-Device
-# Returns a list of all devices available under the authenticated account.
 ```
 
-### EXAMPLE 2
-```
+Returns all devices available to the authenticating user. This may result in a delayed response depending on
+the number of devices.
+
+### Client Devices
+```PowerShell
 $client | Get-Device
-# Returns a list of devices for the given client
 ```
+Returns a list of devices for the given client
 
-### EXAMPLE 3
-```
+
+### Clients by parameter
+```PowerShell
 Get-Device -Client $client,$client2
-# Returns a list of devices for two clients
 ```
+Returns a list of devices for two clients.
 
-### EXAMPLE 4
-```
+
+### Specific device by ID
+```PowerShell
 Get-Device -Device 12345
 ```
 
-### EXAMPLE 5
-```
+### Specific device by Object
+```PowerShell
 Get-Device -Device $myDevice
 ```
 
@@ -93,30 +93,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Client objects
+Client objects
 ## OUTPUTS
 
-### A Device object or array of Device objects
-## NOTES
-
-## RELATED LINKS
+A Device object or array of Device objects

@@ -6,44 +6,45 @@ Retrieves information on a client or clients
 ## SYNTAX
 
 ### All (Default)
-```
+```PowerShell
 Get-Client [-IncludeAppliances] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Client
-```
+```PowerShell
 Get-Client [-Client <Object[]>] [-IncludeAppliances] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Retrieves information for for one or multiple clients, including client ID, name, health status,
 and device counters.
+
 Optionally basic information about the client's appliances can be included.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
-$clients = Get-Client
+### Default Call
+```PowerShell
+PS > $clients = Get-Client
 PS > $clients.Count
 42
 ```
 
-### EXAMPLE 2
+### Specify client object
+```PowerShell
+PS > $oneClientFreshData = Get-Client -Client $clients[0]
 ```
-$oneClientFreshData = Get-Client -Client $clients[0]
-# Returns updated client information
-```
+Returns updated client information
 
-### EXAMPLE 3
+### Include appliance information
+```PowerShell
+PS > $oneClientFreshData = $clients[0] | Get-Client -IncludeAppliances
 ```
-$oneClientFreshData = $clients[0] | Get-Client -IncludeAppliances
-# Returns updated client information, now with basic appliance information
-```
+Returns updated client information, now with basic appliance information
 
-### EXAMPLE 4
-```
-$oneClient = Get-Client -Client 12345
+### Specify by ID value
+```PowerShell
+PS > $oneClient = Get-Client -Client 12345
 PS > $oneClient.id
 12345
 ```
@@ -82,30 +83,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Accepts a Client object.
+Accepts a Client object.
+
 ## OUTPUTS
 
-### Returns a Client object or array of Client objects.
-## NOTES
-
-## RELATED LINKS
+Returns a Client object or array of Client objects.

@@ -5,7 +5,7 @@ Retrieves restore points for a device.
 
 ## SYNTAX
 
-```
+```PowerShell
 Get-DeviceRestorePoint [-Device] <Object[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -14,9 +14,9 @@ For each specified device, returns an object with current status and a list of r
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
-$devices = Get-Device
+### EXAMPLE
+```PowerShell
+PS > $devices = Get-Device
 PS > $restorePoints = $devices | Get-DeviceRestorePoint
 ```
 
@@ -37,30 +37,13 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### Restore point object
+Restore point object
+
 ## OUTPUTS
 
-### Restore point object or array of Restore point objects
-## NOTES
-
-## RELATED LINKS
+Restore point object or array of Restore point objects

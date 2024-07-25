@@ -11,6 +11,6 @@
 | [Get-DeviceRestorePoint](./docs/Get-DeviceRestorePoint.md) | Retrieves restore points for a device. |
 | [Get-Organization](./docs/Get-Organization.md) | Retrieves information about the partner organization. |
 | [Get-Vault](./docs/Get-Vault.md) | Get information about vaults |
-| [Initialize-AxcientAPI](./docs/Initialize-AxcientAPI.md) | Prepares for calls to the Axcient API. |
+| [Initialize-AxcientAPI](./docs/Initialize-AxcientAPI.md) | Sets API key, server URL, and error handling for AxcientAPI module functions. |
 
 #

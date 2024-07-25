@@ -5,7 +5,7 @@ Get history of runs for a backup job.
 
 ## SYNTAX
 
-```
+```PowerShell
 Get-BackupJobHistory [[-Device] <Object>] [[-Client] <Object>] [-Job] <Object>
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
@@ -15,15 +15,17 @@ Retrieves run history for a backup job
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
+### Specify parameters
+```PowerShell
 Get-BackupJobHistory -Device 12345 -Client 67890 -Job 54321
 ```
 
-### EXAMPLE 2
-```
+### Piped job object
+```PowerShell
 $job | Get-BackupJobHistory
 ```
+
+Retrieve history for a specific job.
 
 ## PARAMETERS
 
@@ -77,27 +79,16 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+Job objects
+
 ## OUTPUTS
+
+A Job history object or an array of Job history objects
 
 ## NOTES
 This endpoint currently has a bug.
@@ -105,5 +96,3 @@ Function logic is cohesive but untested.
 It may be attempted, a warning will display.
 Once bug is resolved this warning will be removed.
 #GH-3 -2024-07-11
-
-## RELATED LINKS
