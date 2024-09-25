@@ -29,7 +29,7 @@ function Get-DeviceRestorePoint {
         foreach ($thisDevice in $Device) {
             $_deviceId = Find-ObjectIdByReference $thisDevice
             Invoke-AxcientAPI -Endpoint "device/$_deviceId/restore_point" -Method Get | Foreach-Object {
-                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -PassThru |
+                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $thisDevice.client_id -Force -PassThru |
                 Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
                 Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device.restorepoint' -PassThru
             }

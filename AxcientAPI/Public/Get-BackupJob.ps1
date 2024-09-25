@@ -88,7 +88,7 @@ function Get-BackupJob {
             return
         }
         Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
-            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
+            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -Force -PassThru |
             Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
             Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job' -PassThru
         }

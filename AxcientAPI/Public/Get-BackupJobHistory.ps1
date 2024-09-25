@@ -39,7 +39,6 @@ function Get-BackupJobHistory {
         [object]$Job
     )
     begin {
-        Write-Warning "This endpoint is bugged and unusable as of 2024-07-11, returning a missing path parameter error. Once this is resolved this function will be tested and this warning removed. See Issue #GH-3."
         $deviceParamID = Find-ObjectIdByReference $Device
         $clientParamID = Find-ObjectIdByReference $Client
     }
@@ -54,7 +53,7 @@ function Get-BackupJobHistory {
         }
         $_endpoint = "client/$_clientId/device/$_deviceId/job/$_jobId/history"
         Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
-            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -PassThru |
+            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -Force -PassThru |
             Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
             Add-Member -MemberType NoteProperty -Name 'job_id' -Value $_jobId -PassThru |
             Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job.history' -PassThru

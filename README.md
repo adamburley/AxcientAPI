@@ -8,7 +8,7 @@
 [![#v-axcient on MSPGeek Discord](https://img.shields.io/discord/801971115013963818?logo=discord&logoColor=white&label=MSPGeek%20%23v-axcient)](https://discord.com/channels/801971115013963818/1020766171978543204)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/adamburley/AxcientAPI)
-![Code Coverage](https://img.shields.io/badge/coverage-86%25-yellow.svg?maxAge=60)
+![Code Coverage](https://img.shields.io/badge/coverage-84%25-yellow.svg?maxAge=60)
 
 In June 2024, Axcient announced a public API for their x360Recover backup product is in early access.
 
@@ -20,11 +20,13 @@ Currently Axcient is accepting requests for access to the production environment
 
 ## Status
 
-Version `0.3.0` and up reflects the July 2024 schema changes.
+Version `0.3.2` updated September 25, 2024
+
+Version resolves an issue with `client_id` conflicts. If you are getting errors about this property, please update your module.
 
 Manual and automated testing against the mock and prod environments is successful.  Please raise issues as found.
 
-`Get-BackupJobHistory` is currently unavailable due to an API bug (see [#3](https://github.com/adamburley/AxcientAPI/issues/3))
+~~`Get-BackupJobHistory` is currently unavailable due to an API bug (see [#3](https://github.com/adamburley/AxcientAPI/issues/3))~~ resolved as of `0.3.2`, update your module
 
 ## Getting Started
 
@@ -75,6 +77,7 @@ You can read more about the implementation of each at the links above.
 1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
 2. [ ] Consider custom objects / classes
 3. [X] Testing with Pester [*Core testing complete*]
+
 
 
 
