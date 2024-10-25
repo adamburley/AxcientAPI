@@ -2,14 +2,15 @@ function Get-D2CAgentToken {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
     param(
-        [Parameter(ValueFromPipeline)]
+        [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'client' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object[]]$Client,
 
-        [Parameter()]
+        [Parameter(Mandatory)]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'vault' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
         [object]$Vault,
 
+        [Parameter()]
         [switch]$PassThru
     )
     begin {
