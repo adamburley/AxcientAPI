@@ -21,8 +21,6 @@ Get-BackupJobHistory -Device 12345 -Client 67890 -Job 54321
 .EXAMPLE
 $job | Get-BackupJobHistory
 
-.NOTES
-This endpoint currently has a bug. Function logic is cohesive but untested. It may be attempted, a warning will display. Once bug is resolved this warning will be removed. #GH-3 -2024-07-11
 #>
 function Get-BackupJobHistory {
     [CmdletBinding()]

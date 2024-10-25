@@ -14,10 +14,11 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Client
 
-| Function   | Endpoint              | Schema   | Notes |
-| ---------- | --------------------- | -------- | ----- |
-| Get-Client | `/client`             | `client` |       |
-| Get-Client | `/client/{client_id}` | `client` |       |
+| Function          | Endpoint                                         | Schema            | Notes                                                                                            |
+| ----------------- | ------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------------------------ |
+| Get-Client        | `/client`                                        | `client`          |                                                                                                  |
+| Get-Client        | `/client/{client_id}`                            | `client`          |                                                                                                  |
+| Get-D2CAgentToken | `/client/{client_id}/vault/{vault_id}/d2c_agent` | `d2c_agent_token` | Added Sept. 2024 as of API version 0.3.1. Returns a `client` object if `-PassThru` is specified. |
 
 ### Device
 
@@ -31,11 +32,11 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Job
 
-| Function             | Endpoint                                                      | Schema        | Notes                                                                        |
-| -------------------- | ------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------- |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |                                                                              |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |                                                                              |
-| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` | **THIS ENDPOINT IS NONFUNCTIONAL**. A bug prevents a successful call. See #3 |
+| Function             | Endpoint                                                      | Schema        | Notes |
+| -------------------- | ------------------------------------------------------------- | ------------- | ----- |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |       |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |       |
+| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` |       |
 
 ### Appliance
 
@@ -53,7 +54,6 @@ All ephemera so far discovered in the API is listed below, as well as the status
 | Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
 | Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |         | This appears redundant to the standard vault call. Ommitting until more information is available. |
 | POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
-
 
 ## Parent ID Properties
 
