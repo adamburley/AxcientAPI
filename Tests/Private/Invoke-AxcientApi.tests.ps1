@@ -55,6 +55,15 @@ Describe "Invoke-AxcientAPI" {
         }
     }
     Context "Error handling" {
+        It "Requires Initialize-AxcientAPI be run prior to use" {
+            Remove-Module AxcientAPI
+            Import-Module $PSScriptRoot\..\..\Output\AxcientAPI -Force
+            InModuleScope AxcientAPI {
+                Mock -CommandName Write-Error {}
+                { Invoke-AxcientAPI -Endpoint 'organization' } | Should -Throw 
+                Should -Invoke Write-Error -ParameterFilter { $Message -eq 'Axcient API is not initialized. Please execute Initialize-AxcientAPI to configure for prod or mock environments.' }
+            }
+        }
         # Leaving this and other validation until the API format is closer to production.
     }
 }

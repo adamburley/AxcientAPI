@@ -2,10 +2,12 @@
     [CmdletBinding()]
     param (
         [string]$Endpoint,
-        [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get,
-
-        [bool]$ReturnErrors = $Script:AxcientReturnErrors
+        [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get
     )
+    if (-not $Script:AxcientBaseUrl) {
+        Write-Error -Message "Axcient API is not initialized. Please execute Initialize-AxcientAPI to configure for prod or mock environments." -ErrorAction Stop
+    }
+    $ReturnErrors = $Script:AxcientReturnErrors
     $_uri = "$Script:AxcientBaseUrl/$Endpoint"
     Write-Debug -Message "Axcient API: $Method $_uri"
     $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-Key' = $AxcientApiKey; 'Accept' = 'application/json' } -SkipHttpErrorCheck
