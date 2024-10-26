@@ -52,7 +52,7 @@ All ephemera so far discovered in the API is listed below, as well as the status
 | ------------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
 | Get-Vault           | `/vault`                                    | `vault` |                                                                                                   |
 | Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
-| Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |         | This appears redundant to the standard vault call. Ommitting until more information is available. |
+| Get-VaultThreshold           | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold`        | For connectivity threshhold only at this time but staged to allow additional settings if/as they are made available. |
 | POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
 
 ## Parent ID Properties
