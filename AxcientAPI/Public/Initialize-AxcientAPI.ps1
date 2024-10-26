@@ -36,7 +36,7 @@ function Initialize-AxcientAPI {
         [Parameter()]
         [switch]$ReturnErrors
     )
-    $baseUrl = $MockServer ? 'https://ax-pub-recover.wiremockapi.cloud' : 'https://axapi.axcient.com/x360recover'
+    $baseUrl = $MockServer ? 'https://ax-pub-recover.wiremockapi.cloud/x360recover' : 'https://axapi.axcient.com/x360recover'
     $Script:AxcientBaseUrl = $baseUrl
     $Script:AxcientApiKey = $ApiKey
     if ($ReturnErrors) { $Script:AxcientReturnErrors = $true } else { $Script:AxcientReturnErrors = $false }

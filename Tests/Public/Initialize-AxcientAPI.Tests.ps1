@@ -18,7 +18,7 @@ Describe "Initialize-AxcientAPI" {
     It "should set the mock URL as a script variable" {
         Initialize-AxcientAPI -ApiKey "pesterapikey" -MockServer
         InModuleScope -ModuleName AxcientAPI {
-            $AxcientBaseUrl | Should -Be "https://ax-pub-recover.wiremockapi.cloud"
+            $AxcientBaseUrl | Should -Be "https://ax-pub-recover.wiremockapi.cloud/x360recover"
         }
     }
 }

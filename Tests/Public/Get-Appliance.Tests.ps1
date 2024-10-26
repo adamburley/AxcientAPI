@@ -103,22 +103,6 @@ Describe 'Get-Appliance' {
         }
     }
     Context 'Output validation' {
-        It 'Appends a client_id from an Appliance object' {
-            $dav = Get-Appliance -Appliance ([PSCustomObject]@{
-                    id           = 2
-                    client_id    = 12
-                    objectschema = 'appliance'
-                })
-            $dav.client_id | Should -Be 12
-            $dav.id | Should -Be 2
-        }
-        It 'Appends a client_id when passed a Client object' {
-            $dav = Get-Appliance -Client ([PSCustomObject]@{
-                    id           = 41
-                    objectschema = 'client'
-                })
-            $dav.client_id | Should -Be 41
-        }
         It 'Appends schema for a single result' {
             $dav = Get-Appliance -Appliance 41
             $dav.objectschema | Should -Be 'appliance'

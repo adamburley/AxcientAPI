@@ -11,7 +11,7 @@ Describe "Invoke-AxcientAPI" {
             }
             InModuleScope AxcientAPI { 
                 Invoke-AxcientAPI -Endpoint "client/2/device" -Method Get -ErrorAction SilentlyContinue
-                $InvocationEndpoint | Should -Be "https://ax-pub-recover.wiremockapi.cloud/client/2/device" 
+                $InvocationEndpoint | Should -Be "https://ax-pub-recover.wiremockapi.cloud/x360recover/client/2/device" 
             }
         }
         It "Invokes the correct production endpoint" {
