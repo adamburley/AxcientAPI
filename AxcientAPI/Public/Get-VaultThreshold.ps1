@@ -45,6 +45,12 @@ Accepts a Vault object from the pipeline
 [PSCustomObject]
 A vault.threshold object or a Vault object
 
+.LINK
+Set-VaultThreshold
+
+.LINK
+Get-Vault
+
 #>
 function Get-VaultThreshold {
     [CmdletBinding()]
