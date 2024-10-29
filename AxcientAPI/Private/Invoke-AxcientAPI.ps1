@@ -2,7 +2,8 @@
     [CmdletBinding()]
     param (
         [string]$Endpoint,
-        [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get
+        [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get,
+        [object]$Body
     )
     if (-not $Script:AxcientBaseUrl) {
         Write-Error -Message "Axcient API is not initialized. Please execute Initialize-AxcientAPI to configure for prod or mock environments." -ErrorAction Stop
@@ -10,7 +11,17 @@
     $ReturnErrors = $Script:AxcientReturnErrors
     $_uri = "$Script:AxcientBaseUrl/$Endpoint"
     Write-Debug -Message "Axcient API: $Method $_uri"
-    $response = Invoke-WebRequest -Uri $_uri -Method $Method  -Headers @{ 'X-API-Key' = $AxcientApiKey; 'Accept' = 'application/json' } -SkipHttpErrorCheck
+    $splat = @{
+        Uri = $_uri
+        Method = $Method
+        Headers = @{ 'X-API-Key' = $AxcientApiKey; 'Accept' = 'application/json' }
+        SkipHttpErrorCheck = $true
+    }
+    if ($Body) {
+        $splat.Body = $Body | ConvertTo-Json
+        $splat.Headers.'Content-Type' = 'application/json'
+    }
+    $response = Invoke-WebRequest @splat
     Write-Debug -Message "API Returned: $($response.StatusCode) $($response.StatusDescription) $($response.Content.Length) bytes of $($response.Headers.'Content-Type')"
     if ($response.StatusCode -ne 200) {
         # Attempt to parse the body
