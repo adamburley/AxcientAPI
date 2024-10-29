@@ -48,12 +48,12 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Vault
 
-| Function            | Endpoint                                    | Schema  | Notes                                                                                             |
-| ------------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| Get-Vault           | `/vault`                                    | `vault` |                                                                                                   |
-| Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
-| Get-VaultThreshold           | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold`        | For connectivity threshhold only at this time but staged to allow additional settings if/as they are made available. |
-| POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
+| Function           | Endpoint                                    | Schema            | Notes                                                                                                                |
+| ------------------ | ------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Get-Vault          | `/vault`                                    | `vault`           |                                                                                                                      |
+| Get-Vault          | `/vault/{vault_id}`                         | `vault`           |                                                                                                                      |
+| Get-VaultThreshold | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold` | For connectivity threshhold only at this time but staged to allow additional settings if/as they are made available. |
+| Set-VaultThreshold | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold` | Not tested in production yet but should be functional. Open Issue if an error occurs.                                |
 
 ## Parent ID Properties
 
@@ -164,5 +164,22 @@ At least one endpoint - Job History - returns with a similar format.
   "status": 400,
   "title": "Bad Request",
   "type": "about:blank"
+}
+```
+
+### Permissions
+
+Post requests (Vault Threshhold at this time) may give this
+
+- HTTP Status: 403
+- Content-Type: `application/problem+json`
+- Body:
+
+```json
+{
+  "detail": "User doesn't have enough permissions to process this request",
+  "status": 403,
+  "title": "Not enough permissions",
+  "type": "ForbiddenException"
 }
 ```
