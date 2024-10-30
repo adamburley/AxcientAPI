@@ -22,13 +22,13 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Device
 
-| Function         | Endpoint                            | Schema                | Notes                                 |
-| ---------------- | ----------------------------------- | --------------------- | ------------------------------------- |
-| Get-Device       | `/device`                           | `device`              | Announced in July 2024 schema update. |
-| Get-Device       | `/client/{client_id}/device`        | `device`              |                                       |
-| Get-Device       | `/device/{device_id}`               | `device`              |                                       |
-| Get-AutoVerify   | `/device/{device_id}/autoverify`    | `device.autoverify`   |                                       |
-| Get-RestorePoint | `/device/{device_id}/restore_point` | `device.restorepoint` |                                       |
+| Function         | Endpoint                            | Schema                | Notes                                                                                                                  |
+| ---------------- | ----------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Get-Device       | `/device`                           | `device`              | Announced in July 2024 schema update. Pagination configured as of module version `0.4.0`, hard set in intervals of 100 |
+| Get-Device       | `/client/{client_id}/device`        | `device`              |                                                                                                                        |
+| Get-Device       | `/device/{device_id}`               | `device`              |                                                                                                                        |
+| Get-AutoVerify   | `/device/{device_id}/autoverify`    | `device.autoverify`   |                                                                                                                        |
+| Get-RestorePoint | `/device/{device_id}/restore_point` | `device.restorepoint` |                                                                                                                        |
 
 ### Job
 

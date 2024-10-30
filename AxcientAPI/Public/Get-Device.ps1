@@ -24,6 +24,7 @@ A Device object or array of Device objects
 .EXAMPLE
 Get-Device
 # Returns a list of all devices available under the authenticated account.
+# Note: This parameter set paginates calls in offsets of 100 to retrieve all devices.
 
 .EXAMPLE
 $client | Get-Device
@@ -40,7 +41,7 @@ Get-Device -Device 12345
 Get-Device -Device $myDevice
 #>
 function Get-Device {
-    [CmdletBinding(DefaultParameterSetName = 'None')]
+    [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([PSCustomObject], [PSCustomObject[]])]
     param (
         [Parameter(ValueFromPipeline, ParameterSetName = 'Client')]
@@ -72,9 +73,15 @@ function Get-Device {
             }
         }
         else {
-            Invoke-AxcientAPI -Endpoint 'device' -Method Get | Foreach-Object {
-                $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
-            }
+            $offset = 0
+            do {
+                Write-Debug "Pagination Offset: $offset"
+                $thisPage = Invoke-AxcientAPI -Endpoint "device?limit=100&offset=$offset" -Method Get | Foreach-Object {
+                    $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
+                }
+                $offset += $thisPage.Count
+                $thisPage
+            } while ($thisPage.Count -eq 100)
         }
     }
 }
