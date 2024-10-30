@@ -32,11 +32,11 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Job
 
-| Function             | Endpoint                                                      | Schema        | Notes |
-| -------------------- | ------------------------------------------------------------- | ------------- | ----- |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |       |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |       |
-| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` |       |
+| Function             | Endpoint                                                      | Schema        | Notes                                                             |
+| -------------------- | ------------------------------------------------------------- | ------------- | ----------------------------------------------------------------- |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |                                                                   |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |                                                                   |
+| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` | starttime_begin and pagination in groups of 1500 added in `0.4.0` |
 
 ### Appliance
 

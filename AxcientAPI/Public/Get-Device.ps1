@@ -15,6 +15,13 @@ You may pipe Client objects to this function.
 A specific device or devices to retrieve information for. Accepts one or more integer device
 IDs or objects.
 
+.PARAMETER ServiceId
+The four-character service id for the desired device. Only available when specifying a client
+
+.PARAMETER D2COnly
+Return D2C devices only. Available when specifying a client
+Note: This parameter is ignored if ServiceId is specified
+
 .INPUTS
 Client objects
 

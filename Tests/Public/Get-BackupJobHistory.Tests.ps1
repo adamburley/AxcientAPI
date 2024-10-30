@@ -21,7 +21,7 @@ Describe 'Get-BackupJobHistory' {
         Get-BackupJobHistory -Job $job
     
         Should -Invoke Invoke-AxcientAPI -ModuleName AxcientAPI -ParameterFilter {
-            $Endpoint -eq 'client/1/device/2/job/3/history' -and
+            $Endpoint -eq 'client/1/device/2/job/3/history?&limit=1500&offset=0' -and
             $Method -eq 'Get'
         }
     }
@@ -57,7 +57,7 @@ Describe 'Get-BackupJobHistory' {
         Get-BackupJobHistory -Device 1 -Client 2 -Job 3
     
         Should -Invoke Invoke-AxcientAPI -ModuleName AxcientAPI -ParameterFilter {
-            $Endpoint -eq 'client/2/device/1/job/3/history'
+            $Endpoint -eq 'client/2/device/1/job/3/history?&limit=1500&offset=0'
         }
     }
     
@@ -72,9 +72,65 @@ Describe 'Get-BackupJobHistory' {
         $job | Get-BackupJobHistory
     
         Should -Invoke Invoke-AxcientAPI -ModuleName AxcientAPI -ParameterFilter {
-            $Endpoint -eq 'client/1/device/2/job/3/history'
+            $Endpoint -eq 'client/1/device/2/job/3/history?&limit=1500&offset=0'
         }
     }
 
+    It 'Should parse -StartTimeBegin to the appropriate Unix timestamp' {
+        $job = [PSCustomObject]@{
+            client_id    = 1
+            device_id    = 2
+            id           = 3
+            objectschema = 'job'
+        }
+    
+        $job | Get-BackupJobHistory -StartTimeBegin '2024-08-12'
+        
+        Should -Invoke Invoke-AxcientAPI -ModuleName AxcientAPI -ParameterFilter {
+            $Endpoint -eq 'client/1/device/2/job/3/history?starttime_begin=1723435200&limit=1500&offset=0'
+        }
+    }
+
+    Context 'Pagination' {
+        BeforeAll {
+            Mock -ModuleName AxcientAPI -CommandName Invoke-AxcientAPI {
+                New-Variable -Name InvocationEndpoint -Value $Endpoint -Scope Script -Force
+                if ($Endpoint -eq 'client/1/device/2/job/3/history?&limit=1500&offset=0') {
+                    0..1499 | % { [PSCustomObject]@{ id = $_ } }
+                }
+                elseif ($Endpoint -eq 'client/1/device/2/job/3/history?&limit=1500&offset=1500') {
+                    1500..2999 | % { [PSCustomObject]@{ id = $_ } }
+                }
+                else {
+                    2000..2424 | % { [PSCustomObject]@{ id = $_ } }
+                }
+            }
+            $job = [PSCustomObject]@{
+                client_id    = 1
+                device_id    = 2
+                id           = 3
+                objectschema = 'job'
+            }
+        }
+        It 'Retrieves all results' {
+            $history = $job | Get-BackupJobHistory
+            $history | Should -HaveCount 3425
+            Should -ModuleName AxcientAPI -Invoke Invoke-AxcientAPI -Times 3
+        }
+        It 'Does not page more than needed if total results < 1500' {
+            Mock -ModuleName AxcientAPI Invoke-AxcientAPI {
+                0..22 | % { [PSCustomObject]@{ id = $_ } }
+            }
+            $history = $job | Get-BackupJobHistory
+            $history | Should -HaveCount 23
+            Should -ModuleName AxcientAPI -Invoke Invoke-AxcientAPI -Times 1
+        }
+        It 'Does not paginate on error' {
+            Mock -ModuleName AxcientAPI Invoke-AxcientAPI { }
+            $history = $job | Get-BackupJobHistory
+            $history | Should -Be $null
+            Should -ModuleName AxcientAPI -Invoke Invoke-AxcientAPI -Times 1
+        }
+    }
 }
     
