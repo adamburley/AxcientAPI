@@ -107,7 +107,8 @@ PrivateData = @{
         IconUri = 'https://github.com/adamburley/AxcientAPI/blob/main/axcient-logo-85x85.png?raw=true'
 
         # ReleaseNotes of this module
-        ReleaseNotes = '        Version 0.3.2 resolved issue with client_id property conflict, removed warning from Get-BackupJobHistory
+        ReleaseNotes = '        Version 0.4.0 Added pagination on supported endpoints, d2c_agent endpoint, service_id and d2c_only on Get-Device, and get/set Vault threshold
+        Version 0.3.2 resolved issue with client_id property conflict, removed warning from Get-BackupJobHistory
         Version 0.3.1 first published release
         Version 0.2.0 supports the July 2024 API Schema'
 
