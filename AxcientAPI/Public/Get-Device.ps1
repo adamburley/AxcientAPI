@@ -51,7 +51,16 @@ function Get-Device {
         [Parameter(ParameterSetName = 'Device')]
         [Alias('Id')]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'device' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
-        [object[]]$Device
+        [object[]]$Device,
+
+        [Parameter(ParameterSetName = 'Client')]
+        [Alias('service_id')]
+        [ValidateLength(4,4)]
+        [string]$ServiceId,
+
+        [Parameter(ParameterSetName = 'Client')]
+        [Alias('d2c_only')]
+        [switch]$D2COnly
     )
     process {
         if ($PSCmdlet.ParameterSetName -eq 'Device') {
@@ -67,6 +76,11 @@ function Get-Device {
             foreach ($thisClient in $Client) {
                 $_clientId = Find-ObjectIdByReference $thisClient
                 $_endpoint = "client/$_clientId/device"
+                If ($ServiceId -and $D2COnly) {
+                    Write-Warning -Message 'Only one of service_id and d2c_only may be specified. Ignoring d2c_only switch.'
+                }
+                if ($ServiceId) { $_endpoint += "?service_id=$ServiceId"}
+                elseif ($D2COnly) { $_endpoint += "?d2c_only=true" }
                 Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
                     $_ | Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'device' -PassThru
                 }

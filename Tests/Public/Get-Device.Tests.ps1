@@ -35,6 +35,11 @@ Describe "Get-Device" {
         It "-Device requires a matching object" {
             { Get-Device -Device $clientObject } | Should -Throw -ExpectedMessage "Cannot validate argument on parameter 'Device'. Must be a positive integer or matching object" -ExceptionType ([System.Management.Automation.ParameterBindingException])
         }
+        It "ServiceId requires length = 4" {
+            { Get-Device -Client 2 -ServiceId 'asdf' } | Should -Not -Throw
+            { Get-Device -Client 2 -ServiceId 'as' } | Should -Throw
+            { Get-Device -Client 2 -ServiceId 'asdfqwe' } | Should -Throw
+        }
     }
 
     Context "Call and response" {
@@ -72,6 +77,29 @@ Describe "Get-Device" {
             }
             Get-Device -Device $deviceObject
             $InvocationEndpoint | Should -Be "device/42"
+        }
+        It "Passes a Service ID to a query parameter" {
+            Mock -ModuleName AxcientAPI -CommandName Invoke-AxcientAPI {
+                New-Variable -Name InvocationEndpoint -Value $Endpoint -Scope Script -Force
+            }
+            Get-Device -Client 12 -ServiceId 'baby'
+            $InvocationEndpoint | Should -Be 'client/12/device?service_id=baby'
+        }
+        It 'Passes D2C Only to a query parameter' {
+            Mock -ModuleName AxcientAPI -CommandName Invoke-AxcientAPI {
+                New-Variable -Name InvocationEndpoint -Value $Endpoint -Scope Script -Force
+            }
+            Get-Device -Client 42 -D2COnly
+            $InvocationEndpoint | Should -Be 'client/42/device?d2c_only=true'
+        }
+        It 'Ignores D2C if Service ID is specified' {
+            Mock -ModuleName AxcientAPI -CommandName Invoke-AxcientAPI {
+                New-Variable -Name InvocationEndpoint -Value $Endpoint -Scope Script -Force
+            }
+            Get-Device -Client 33 -ServiceId 'asdf' -D2COnly
+            Should -ModuleName AxcientAPI -Invoke Write-Warning -Times 1 -ParameterFilter { $Message -eq 'Only one of service_id and d2c_only may be specified. Ignoring d2c_only switch.' }
+            $InvocationEndpoint | Should -Be 'client/33/device?service_id=asdf'
+            
         }
     }
     Context 'Pagination' {
