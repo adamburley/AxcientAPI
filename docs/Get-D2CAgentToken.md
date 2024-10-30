@@ -5,7 +5,7 @@ Gets a Direct-to-Cloud (D2C) agent token for a client and vault.
 
 ## SYNTAX
 
-```
+```PowerShell
 Get-D2CAgentToken [-Client] <Object[]> [-Vault] <Object> [-PassThru] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```

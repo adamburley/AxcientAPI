@@ -8,7 +8,7 @@
 [![#v-axcient on MSPGeek Discord](https://img.shields.io/discord/801971115013963818?logo=discord&logoColor=white&label=MSPGeek%20%23v-axcient)](https://discord.com/channels/801971115013963818/1020766171978543204)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/adamburley/AxcientAPI)
-![Code Coverage](https://img.shields.io/badge/coverage-89%25-yellow.svg?maxAge=60)
+![Code Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen.svg?maxAge=60)
 
 In June 2024, Axcient announced a public API for their x360Recover backup product is in early access.
 

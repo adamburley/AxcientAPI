@@ -5,7 +5,7 @@ Retrieves a threshold value for a vault.
 
 ## SYNTAX
 
-```
+```PowerShell
 Get-VaultThreshold [-Vault] <Object> [[-Type] <String>] [-PassThru] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
