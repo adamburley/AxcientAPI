@@ -15,14 +15,26 @@ Relevant Client ID or Object. Not required if Client ID is avilable on Device or
 .PARAMETER Job
 A specific Job to retrieve information for.
 
+.PARAMETER StartTimeBegin
+The oldest date / time start time you want to return history for.
+
 .EXAMPLE
 Get-BackupJobHistory -Device 12345 -Client 67890 -Job 54321
 
 .EXAMPLE
 $job | Get-BackupJobHistory
 
+.EXAMPLE
+$job | Get-BackupJobHistory -StartTimeBegin (Get-Date).AddDays(-30)
+# This example returns history only for jobs starting less than 30 days ago
+
+.EXAMPLE
+$job | Get-BackupJobHistory -StartTimeBegin '2024-08-12'
+# This example returns history for jobs starting after August 12, 2024 00:00
+
 .NOTES
-This endpoint currently has a bug. Function logic is cohesive but untested. It may be attempted, a warning will display. Once bug is resolved this warning will be removed. #GH-3 -2024-07-11
+As of v0.4.0 this function utilizes pagination to ensure all results are returned. History
+is requested in sets of 1500.
 #>
 function Get-BackupJobHistory {
     [CmdletBinding()]
@@ -36,7 +48,11 @@ function Get-BackupJobHistory {
 
         [Parameter(ValueFromPipeline, Mandatory)]
         [ValidateScript({ Find-ObjectIdByReference -Reference $_ -Schema 'job' -Validation }, ErrorMessage = 'Must be a positive integer or matching object' )]
-        [object]$Job
+        [object]$Job,
+
+        [Parameter()]
+        [Alias('starttime_begin')]
+        [DateTime]$StartTimeBegin
     )
     begin {
         $deviceParamID = Find-ObjectIdByReference $Device
@@ -52,11 +68,24 @@ function Get-BackupJobHistory {
             continue
         }
         $_endpoint = "client/$_clientId/device/$_deviceId/job/$_jobId/history"
-        Invoke-AxcientAPI -Endpoint $_endpoint -Method Get | Foreach-Object {
-            $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -Force -PassThru |
-            Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
-            Add-Member -MemberType NoteProperty -Name 'job_id' -Value $_jobId -PassThru |
-            Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job.history' -PassThru
+        if ($StartTimeBegin) {
+            $unixTimestamp = [int][double]::Parse((Get-Date $StartTimeBegin -UFormat %s))
+            $_endpoint += "?starttime_begin=$unixTimestamp"
         }
+        else {
+            $_endpoint += "?"
+        }
+        $offset = 0
+        do {
+            Write-Debug "Pagination Offset: $offset"
+            $thisPage = Invoke-AxcientAPI -Endpoint "$_endpoint`&limit=1500&offset=$offset" -Method Get | Foreach-Object {
+                $_ | Add-Member -MemberType NoteProperty -Name 'client_id' -Value $_clientId -Force -PassThru |
+                Add-Member -MemberType NoteProperty -Name 'device_id' -Value $_deviceId -PassThru |
+                Add-Member -MemberType NoteProperty -Name 'job_id' -Value $_jobId -PassThru |
+                Add-Member -MemberType NoteProperty -Name 'objectschema' -Value 'job.history' -PassThru
+            }
+            $offset += $thisPage.Count
+            $thisPage
+        } while ($thisPage.Count -eq 1500)
     }
 }

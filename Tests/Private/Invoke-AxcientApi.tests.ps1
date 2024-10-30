@@ -11,7 +11,7 @@ Describe "Invoke-AxcientAPI" {
             }
             InModuleScope AxcientAPI { 
                 Invoke-AxcientAPI -Endpoint "client/2/device" -Method Get -ErrorAction SilentlyContinue
-                $InvocationEndpoint | Should -Be "https://ax-pub-recover.wiremockapi.cloud/client/2/device" 
+                $InvocationEndpoint | Should -Be "https://ax-pub-recover.wiremockapi.cloud/x360recover/client/2/device" 
             }
         }
         It "Invokes the correct production endpoint" {
@@ -55,6 +55,15 @@ Describe "Invoke-AxcientAPI" {
         }
     }
     Context "Error handling" {
+        It "Requires Initialize-AxcientAPI be run prior to use" {
+            Remove-Module AxcientAPI
+            Import-Module $PSScriptRoot\..\..\Output\AxcientAPI -Force
+            InModuleScope AxcientAPI {
+                Mock -CommandName Write-Error {}
+                { Invoke-AxcientAPI -Endpoint 'organization' } | Should -Throw 
+                Should -Invoke Write-Error -ParameterFilter { $Message -eq 'Axcient API is not initialized. Please execute Initialize-AxcientAPI to configure for prod or mock environments.' }
+            }
+        }
         # Leaving this and other validation until the API format is closer to production.
     }
 }

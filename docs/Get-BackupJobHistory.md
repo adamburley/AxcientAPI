@@ -6,7 +6,7 @@ Get history of runs for a backup job.
 ## SYNTAX
 
 ```PowerShell
-Get-BackupJobHistory [[-Device] <Object>] [[-Client] <Object>] [-Job] <Object>
+Get-BackupJobHistory [[-Device] <Object>] [[-Client] <Object>] [-Job] <Object> [[-StartTimeBegin] <DateTime>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -20,12 +20,25 @@ Retrieves run history for a backup job
 Get-BackupJobHistory -Device 12345 -Client 67890 -Job 54321
 ```
 
-### Piped job object
+### Piped job
 ```PowerShell
 $job | Get-BackupJobHistory
 ```
 
-Retrieve history for a specific job.
+### Start time begin - last 30
+```PowerShell
+$job | Get-BackupJobHistory -StartTimeBegin (Get-Date).AddDays(-30)
+```
+
+This example returns history only for jobs starting less than 30 days ago
+
+
+### Start time begin - date time string
+```PowerShell
+$job | Get-BackupJobHistory -StartTimeBegin '2024-08-12'
+```
+This example returns history for jobs starting after August 12, 2024 00:00
+
 
 ## PARAMETERS
 
@@ -79,20 +92,34 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
+### -StartTimeBegin
+The oldest date / time start time you want to return history for.
+
+```yaml
+Type: DateTime
+Parameter Sets: (All)
+Aliases: starttime_begin
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+[PSCustomObject]
 Job objects
 
 ## OUTPUTS
 
-A Job history object or an array of Job history objects
+[PSCustomObjects]
+Job history objects
 
 ## NOTES
-This endpoint currently has a bug.
-Function logic is cohesive but untested.
-It may be attempted, a warning will display.
-Once bug is resolved this warning will be removed.
-#GH-3 -2024-07-11
+As of v0.4.0 this function utilizes pagination to ensure all results are returned.
+History is requested in sets of 1500.

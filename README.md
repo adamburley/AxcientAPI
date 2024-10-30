@@ -8,7 +8,7 @@
 [![#v-axcient on MSPGeek Discord](https://img.shields.io/discord/801971115013963818?logo=discord&logoColor=white&label=MSPGeek%20%23v-axcient)](https://discord.com/channels/801971115013963818/1020766171978543204)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/adamburley/AxcientAPI)
-![Code Coverage](https://img.shields.io/badge/coverage-84%25-yellow.svg?maxAge=60)
+![Code Coverage](https://img.shields.io/badge/coverage-91%25-brightgreen.svg?maxAge=60)
 
 In June 2024, Axcient announced a public API for their x360Recover backup product is in early access.
 
@@ -20,13 +20,11 @@ Currently Axcient is accepting requests for access to the production environment
 
 ## Status
 
-Version `0.3.2` updated September 25, 2024
+Version 0.4.0 updated October 19, 2024.  Aligns with version 0.3.1 of API.
 
-Version resolves an issue with `client_id` conflicts. If you are getting errors about this property, please update your module.
+Version 0.4.0 adds new endpoints and resolves several issues.
 
 Manual and automated testing against the mock and prod environments is successful.  Please raise issues as found.
-
-~~`Get-BackupJobHistory` is currently unavailable due to an API bug (see [#3](https://github.com/adamburley/AxcientAPI/issues/3))~~ resolved as of `0.3.2`, update your module
 
 ## Getting Started
 
@@ -56,12 +54,15 @@ objectschema  : organization
 | [Get-BackupJob](./docs/Get-BackupJob.md) | Get backup job information for a device. |
 | [Get-BackupJobHistory](./docs/Get-BackupJobHistory.md) | Get history of runs for a backup job. |
 | [Get-Client](./docs/Get-Client.md) | Retrieves information on a client or clients |
+| [Get-D2CAgentToken](./docs/Get-D2CAgentToken.md) | Gets a Direct-to-Cloud (D2C) agent token for a client and vault. |
 | [Get-Device](./docs/Get-Device.md) | Retrieves information about devices. |
 | [Get-DeviceAutoVerify](./docs/Get-DeviceAutoVerify.md) | Retrieves auto-verify information for one or more devices. |
 | [Get-DeviceRestorePoint](./docs/Get-DeviceRestorePoint.md) | Retrieves restore points for a device. |
 | [Get-Organization](./docs/Get-Organization.md) | Retrieves information about the partner organization. |
 | [Get-Vault](./docs/Get-Vault.md) | Get information about vaults |
+| [Get-VaultThreshold](./docs/Get-VaultThreshold.md) | Retrieves a threshold value for a vault. |
 | [Initialize-AxcientAPI](./docs/Initialize-AxcientAPI.md) | Sets API key, server URL, and error handling for AxcientAPI module functions. |
+| [Set-VaultThreshold](./docs/Set-VaultThreshold.md) | Sets a threshold value for a vault. |
 
 ## Custom properties
 
@@ -77,10 +78,3 @@ You can read more about the implementation of each at the links above.
 1. [x] Devices do not carry client ID in the object, making them hard to pipe _Currently implemented by the module, not the API_
 2. [ ] Consider custom objects / classes
 3. [X] Testing with Pester [*Core testing complete*]
-
-
-
-
-
-
-

@@ -14,28 +14,29 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Client
 
-| Function   | Endpoint              | Schema   | Notes |
-| ---------- | --------------------- | -------- | ----- |
-| Get-Client | `/client`             | `client` |       |
-| Get-Client | `/client/{client_id}` | `client` |       |
+| Function          | Endpoint                                         | Schema            | Notes                                                                                            |
+| ----------------- | ------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------------------------ |
+| Get-Client        | `/client`                                        | `client`          |                                                                                                  |
+| Get-Client        | `/client/{client_id}`                            | `client`          |                                                                                                  |
+| Get-D2CAgentToken | `/client/{client_id}/vault/{vault_id}/d2c_agent` | `d2c_agent_token` | Added Sept. 2024 as of API version 0.3.1. Returns a `client` object if `-PassThru` is specified. |
 
 ### Device
 
-| Function         | Endpoint                            | Schema                | Notes                                 |
-| ---------------- | ----------------------------------- | --------------------- | ------------------------------------- |
-| Get-Device       | `/device`                           | `device`              | Announced in July 2024 schema update. |
-| Get-Device       | `/client/{client_id}/device`        | `device`              |                                       |
-| Get-Device       | `/device/{device_id}`               | `device`              |                                       |
-| Get-AutoVerify   | `/device/{device_id}/autoverify`    | `device.autoverify`   |                                       |
-| Get-RestorePoint | `/device/{device_id}/restore_point` | `device.restorepoint` |                                       |
+| Function         | Endpoint                            | Schema                | Notes                                                                                                                  |
+| ---------------- | ----------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Get-Device       | `/device`                           | `device`              | Announced in July 2024 schema update. Pagination configured as of module version `0.4.0`, hard set in intervals of 100 |
+| Get-Device       | `/client/{client_id}/device`        | `device`              |                                                                                                                        |
+| Get-Device       | `/device/{device_id}`               | `device`              |                                                                                                                        |
+| Get-AutoVerify   | `/device/{device_id}/autoverify`    | `device.autoverify`   |                                                                                                                        |
+| Get-RestorePoint | `/device/{device_id}/restore_point` | `device.restorepoint` |                                                                                                                        |
 
 ### Job
 
-| Function             | Endpoint                                                      | Schema        | Notes                                                                        |
-| -------------------- | ------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------- |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |                                                                              |
-| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |                                                                              |
-| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` | **THIS ENDPOINT IS NONFUNCTIONAL**. A bug prevents a successful call. See #3 |
+| Function             | Endpoint                                                      | Schema        | Notes                                                             |
+| -------------------- | ------------------------------------------------------------- | ------------- | ----------------------------------------------------------------- |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job`                  | `job`         |                                                                   |
+| Get-BackupJob        | `/client/{client_id}/device/{device_id}/job/{job_id}`         | `job`         |                                                                   |
+| Get-BackupJobHistory | `/client/{client_id}/device/{device_id}/job/{job_id}/history` | `job.history` | starttime_begin and pagination in groups of 1500 added in `0.4.0` |
 
 ### Appliance
 
@@ -47,13 +48,12 @@ All ephemera so far discovered in the API is listed below, as well as the status
 
 ### Vault
 
-| Function            | Endpoint                                    | Schema  | Notes                                                                                             |
-| ------------------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| Get-Vault           | `/vault`                                    | `vault` |                                                                                                   |
-| Get-Vault           | `/vault/{vault_id}`                         | `vault` |                                                                                                   |
-| Get-Vault           | `/vault/{vault_id}/threshhold/connectivity` |         | This appears redundant to the standard vault call. Ommitting until more information is available. |
-| POST - Connectivity | `/vault/{vault_id}/threshhold/connectivity` |         | Omitting until more information regarding this endpoint is available.                             |
-
+| Function           | Endpoint                                    | Schema            | Notes                                                                                                                |
+| ------------------ | ------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Get-Vault          | `/vault`                                    | `vault`           |                                                                                                                      |
+| Get-Vault          | `/vault/{vault_id}`                         | `vault`           |                                                                                                                      |
+| Get-VaultThreshold | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold` | For connectivity threshhold only at this time but staged to allow additional settings if/as they are made available. |
+| Set-VaultThreshold | `/vault/{vault_id}/threshhold/connectivity` | `vault.threshold` | Not tested in production yet but should be functional. Open Issue if an error occurs.                                |
 
 ## Parent ID Properties
 
@@ -164,5 +164,22 @@ At least one endpoint - Job History - returns with a similar format.
   "status": 400,
   "title": "Bad Request",
   "type": "about:blank"
+}
+```
+
+### Permissions
+
+Post requests (Vault Threshhold at this time) may give this
+
+- HTTP Status: 403
+- Content-Type: `application/problem+json`
+- Body:
+
+```json
+{
+  "detail": "User doesn't have enough permissions to process this request",
+  "status": 403,
+  "title": "Not enough permissions",
+  "type": "ForbiddenException"
 }
 ```
