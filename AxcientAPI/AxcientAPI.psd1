@@ -113,7 +113,7 @@ PrivateData = @{
         Version 0.2.0 supports the July 2024 API Schema'
 
         # Prerelease string of this module
-        Prerelease = 'beta'
+        # Prerelease = 'beta'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false
